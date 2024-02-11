@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/recipes/data/api.service';
 import { Recipe } from './recipe';
 import { RecipeDto } from './recipe-dto';
 

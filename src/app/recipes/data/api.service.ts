@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { RecipeDto, RecipesListDto } from './recipes/data/recipe-dto';
+import { RecipeDto, RecipesListDto } from './recipe-dto';
 
 @Injectable({
   providedIn: 'root',
