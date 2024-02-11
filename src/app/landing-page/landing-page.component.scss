@@ -1,0 +1,49 @@
+@import '/src/variables.scss';
+
+.landing-page {
+    height: 100vh;
+}
+
+.logo {
+    top: 40px;
+    left: 40px;
+}
+
+.option {
+    top: 40px;
+    right: 40px;
+    gap: 40px;
+}
+
+.title-container {
+    top: 35vh;
+    left: 10vh;
+    z-index: 1;
+}
+
+.title {
+    font-size: 75px;
+    color: $text-primary;
+}
+
+.title-add {
+    max-width: 600px;
+    color: $text-primary;
+}
+
+.landing-image {
+    width: 50%;
+    height: 100vh;
+    background-color: wheat;
+    z-index: 0;
+    animation: animation 4s ease-in-out 1;
+}
+
+@keyframes animation {
+	0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
