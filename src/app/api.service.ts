@@ -1,35 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Recipe, RecipeDto, RecipesListDto } from './recipes/data/recipe';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { RecipeDto, RecipesListDto } from './recipes/data/recipe-dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-  private RECIPES_URL: string = 'https://dummyjson.com/recipes'
+  private RECIPES_URL: string = 'https://dummyjson.com/recipes';
 
-  recipesBehaviorSubject: BehaviorSubject<RecipeDto[]> = new BehaviorSubject<RecipeDto[]>([])
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getRecpiesFromApi(): Observable<RecipesListDto> {
+  getRecpiesFromApi(): Observable<RecipeDto[]> {
     return this.http.get<RecipesListDto>(this.RECIPES_URL + '?limit=50')
-  }
-
-  getAllRecipes(): void {
-    this.getRecpiesFromApi().subscribe(
-      recipes => { 
-        const recipe = recipes.recipes
-        this.recipesBehaviorSubject.next(recipe)
-      },
-      (error) => {
-        console.error('GetAllRecipes error: ' + error)
-      }
-    )
-  }
-
-  getRecipesArray(): Observable<RecipeDto[]> {
-    return this.recipesBehaviorSubject.asObservable()
+      .pipe(map((recipes: RecipesListDto) => recipes.recipes));
   }
 }

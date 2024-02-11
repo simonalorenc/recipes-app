@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../api.service';
-import { RecipesListDto } from '../data/recipe';
+import { RecipesRepository } from '../data/recipes-repository';
 
 @Component({
   selector: 'app-recipes-list',
@@ -11,11 +10,10 @@ import { RecipesListDto } from '../data/recipe';
 })
 export class RecipesListComponent implements OnInit {
 
-  constructor(private apiService: ApiService) {}
+  constructor(private recipesRepository: RecipesRepository) {}
 
   ngOnInit(): void {
-    this.apiService.getAllRecipes()
-    this.apiService.getRecipesArray().subscribe(
+    this.recipesRepository.getRecipes().subscribe(
       recipe => console.log(recipe)
     )
   }

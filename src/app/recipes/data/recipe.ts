@@ -1,41 +1,33 @@
-export interface RecipesListDto {
-  recipes: RecipeDto[];
-  total: number;
-  skip: number;
-  limit: number;
-}
+import { RecipeDto } from "./recipe-dto";
 
-export interface RecipeDto {
-  id: number;
-  name: string;
-  ingredients: string[];
-  instructions: string[];
-  prepTimeMinutes: number;
-  cookTimeMinutes: number;
-  servings: number;
-  difficulty: string;
-  cuisine: string;
-  caloriesPerServing: number;
-  tags: string[];
-  userId: number;
-  image: string;
-  rating: number;
-  reviewCount: number;
-  mealType: string[];
-}
+export class Recipe {
+    id: number;
+    name: string;
+    ingridients: string[];
+    instructions: string[];
+    timeToPrepare: number;
+    cookTime: number;
+    servings: number;
+    difficulty: string;
+    cuisine: string;
+    tags: string[];
+    imageUrl: string;
+    rating: number;
+    mealType: string[];
 
-export interface Recipe {
-  id: number;
-  name: string;
-  ingridients: string[];
-  instructions: string[];
-  timeToPrepare: number;
-  cookTime: number;
-  servings: number;
-  difficulty: string;
-  cuisine: string;
-  tags: string[];
-  imageUrl: string;
-  rating: number;
-  mealType: string;
+    constructor(dto: RecipeDto) {
+        this.id = dto.id;
+        this.name = dto.name;
+        this.ingridients = dto.ingredients;
+        this.instructions = dto.instructions;
+        this.timeToPrepare = dto.prepTimeMinutes;
+        this.cookTime = dto.cookTimeMinutes;
+        this.servings = dto.servings;
+        this.difficulty = dto.difficulty;
+        this.cuisine = dto.cuisine;
+        this.tags = dto.tags;
+        this.imageUrl = dto.image;
+        this.rating = dto.rating;
+        this.mealType = dto.mealType
+    }
 }
