@@ -1,39 +1,4 @@
-.recipe-container {
-    width: 750px;
-}
-
-.image {
-    width: 200px;
-    height: 200px;
-}
-
-.content {
-
-    & &__title {
-        margin: 0;
-        padding: 0;
-    }
-}
-
-.arrow {
-    bottom: 30px;
-    right: 30px;
-    color: white;
-}
-
-.meal-type {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 20px;
-    right: 20px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    padding: 20px;
-    transform: rotate(20deg);
-}
-
-.filters {
-    width: 710px;
+input {
+    outline: none;
+    border: none;
 }

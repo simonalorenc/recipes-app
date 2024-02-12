@@ -1,1 +1,33 @@
-<p>recipes-list works!</p>
+<div class="d-flex flex-column">
+  <div
+    class="recipe-container d-flex position-relative"
+    *ngFor="let recipe of recipes"
+  >
+    <div class="position-absolute meal-type">{{ recipe.mealType }}</div>
+    <div class="d-flex p-4 content">
+      <img [src]="recipe.imageUrl" class="image col-4" />
+      <div
+        class="col-8 ms-4 d-flex justify-content-between flex-column"
+      >
+        <h2 class="content__title">{{ recipe.name | uppercase }}</h2>
+        <div class="">
+          <h5>{{ recipe.imageUrl }}</h5>
+          <h5 class="content__text">
+            Cuisine: {{ recipe.cuisine }} <br />
+            Total time to prepare: {{ recipe.timeToPrepare }} min <br />
+            Difficulty evel: {{ recipe.difficulty | lowercase }}
+          </h5>
+        </div>
+        <div>
+          <button class="btn btn-outline-warning btn-sm rounded-pill">
+            pizza
+          </button>
+          <button class="btn btn-outline-warning btn-sm ms-4 rounded-pill">
+            italian
+          </button>
+        </div>
+      </div>
+      <div class="position-absolute arrow"><h2>-></h2></div>
+    </div>
+  </div>
+</div>
