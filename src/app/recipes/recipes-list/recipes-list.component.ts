@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RecipesRepository } from '../data/recipes-repository';
 import { Recipe } from '../data/recipe';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../data/api.service';
 
 @Component({
   selector: 'app-recipes-list',
@@ -12,13 +13,14 @@ import { CommonModule } from '@angular/common';
 })
 export class RecipesListComponent implements OnInit {
   recipes!: Recipe[]
+  tags!: string[]
 
-  constructor(private recipesRepository: RecipesRepository) {}
+  constructor(private recipesRepository: RecipesRepository, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.recipesRepository.getRecipes().subscribe(
       recipes => {
-        this.recipes = recipes 
+        this.recipes = recipes
       } 
     )
   }

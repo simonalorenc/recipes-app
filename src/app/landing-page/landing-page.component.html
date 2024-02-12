@@ -1,5 +1,5 @@
 <nav>
-  <div class="landing-page d-flex">
+  <div class="landing-page d-flex justify-content-between">
     <div class="position-absolute logo">LOGO</div>
     <div class="col-6 d-flex">
       <div class="position-absolute title-container">
@@ -12,8 +12,10 @@
         </h4>
       </div>
     </div>
-    <div class="landing-image col-6"></div>
-    <div class="landing-page"></div>
+    <div class="d-flex justify-conent-end align-items-end carousel position-relative">
+      <img [src]="currentRecipe?.imageUrl" class="carousel__image"> 
+      <div class="carousel__name position-absolute ms-3">{{ currentRecipe?.name | uppercase }}</div>
+    </div>
     <div class="position-absolute option d-flex">
       <div>option</div>
       <div>option</div>

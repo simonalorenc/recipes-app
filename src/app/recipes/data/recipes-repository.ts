@@ -17,4 +17,10 @@ export class RecipesRepository {
       })
     );
   }
+
+  getOneRecipe(id: number): Observable<Recipe> {
+    return this.apiService.getOneRecipeFromApi(id).pipe(
+      map((recipeDto:RecipeDto) => new Recipe(recipeDto))
+    )
+  }
 }

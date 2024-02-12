@@ -1,63 +1,60 @@
-@import '/src/variables.scss';
+@import "/src/variables.scss";
 
 .landing-page {
-    width: 100%;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .logo {
-    top: 40px;
-    left: 40px;
+  top: 40px;
+  left: 40px;
 }
 
 .option {
-    top: 40px;
-    right: 40px;
-    gap: 40px;
+  top: 40px;
+  right: 40px;
+  gap: 40px;
 }
 
 .title-container {
-    top: 35vh;
-    left: 10vh;
-    z-index: 1;
+  top: 35vh;
+  left: 10vh;
+  z-index: 1;
 }
 
 .title {
-    font-size: 75px;
-    color: $text-primary;
+  font-size: 75px;
+  color: $text-primary;
 }
 
 .title-add {
-    max-width: 600px;
-    color: $text-primary;
+  max-width: 600px;
+  color: $text-primary;
 }
 
-.landing-image {
-    width: 50%;
+.carousel {
+  overflow: hidden;
+
+  & &__image {
     height: 100vh;
+    // animation: animation 4s ease-in-out 1;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  & &__name {
+    font-size: 50px;
     z-index: 0;
-    animation: animation 4s ease-in-out 1;
-    background-image: url('https://cdn.dummyjson.com/recipe-images/28.webp');
-    background-size: cover;
+    color: $text-primary;
+  }
 }
+
 
 @keyframes animation {
-	0% {
-        transform: translateX(0%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-} 
-
-// @keyframes animation {
-// 	0% {
-//         background-image: url('https://cdn.dummyjson.com/recipe-images/21.webp');
-//     }
-//     50% {
-//         background-image: url('https://cdn.dummyjson.com/recipe-images/28.webp');
-//     }
-//     100% {
-//         background-image: url('https://cdn.dummyjson.com/recipe-images/41.webp');
-//     }
-// }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

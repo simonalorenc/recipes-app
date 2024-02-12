@@ -9,6 +9,7 @@ import { RecipeDto, RecipesListDto } from './recipe-dto';
 export class ApiService {
   private RECIPES_URL: string = 'https://dummyjson.com/recipes';
   private TAGS_URL: string = 'https://dummyjson.com/recipes/tags';
+  private RECIPE_URL: string = 'https://dummyjson.com/recipes/';
 
   constructor(private http: HttpClient) {}
 
@@ -19,5 +20,9 @@ export class ApiService {
 
   getTagsRecipesFromApi(): Observable<string[]> {
     return this.http.get<string[]>(this.TAGS_URL)
+  }
+
+  getOneRecipeFromApi(id: number): Observable<RecipeDto> {
+    return this.http.get<RecipeDto>(this.RECIPE_URL + `${id}`)
   }
 }
