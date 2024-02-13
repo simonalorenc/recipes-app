@@ -3,7 +3,8 @@
     class="recipe-container d-flex position-relative"
     *ngFor="let recipe of recipes"
   >
-    <div class="position-absolute meal-type">{{ recipe.mealType }}</div>
+  <!-- nie position-absolute tylko własna kolumna -->
+    
     <div class="d-flex p-4 content">
       <img [src]="recipe.imageUrl" class="image col-4" />
       <div
@@ -18,15 +19,15 @@
           </h5>
         </div>
         <div>
-          <button class="btn btn-outline-warning btn-sm rounded-pill">
-            pizza
-          </button>
-          <button class="btn btn-outline-warning btn-sm ms-4 rounded-pill">
-            italian
+          <button class="btn btn-outline-warning btn-sm rounded-pill mx-2" *ngFor="let tag of recipe.tags">
+            {{ tag | lowercase }}
           </button>
         </div>
       </div>
-      <div class="position-absolute arrow"><h2>-></h2></div>
+      <div>
+        <div *ngFor="let mealType of recipe.mealType" class="meal-type" [ngClass]="getMealTypeClass(mealType)">{{ mealType }}</div>
+        <div class="position-absolute arrow"><h2>-></h2></div>
+      </div>
     </div>
   </div>
 </div>

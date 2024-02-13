@@ -5,10 +5,11 @@ import { RecipesListComponent } from './recipes/recipes-list/recipes-list.compon
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/landing-page/main', pathMatch: 'full' },
-  { path: 'landing-page', component: LandingPageComponent },
-  { path: 'main', component: MainComponent, children: [
+  { path: '', redirectTo: '/landing-page/main/recipes-list', pathMatch: 'full' },
+  { path: 'landing-page', component: LandingPageComponent, children: [
+    { path: 'main', component: MainComponent, children: [
       { path: 'recipes-list', component: RecipesListComponent }
+    ]},
   ]}
 ];
 

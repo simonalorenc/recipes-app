@@ -33,5 +33,6 @@ export class MainComponent {
 
   deleteMealTypeFilter(): void {
     this.isMealTypeChoosed = false
+    this.searchInput.nativeElement.value = ''
   }
 }

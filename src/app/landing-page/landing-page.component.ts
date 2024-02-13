@@ -3,11 +3,12 @@ import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { Recipe } from '../recipes/data/recipe';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })
@@ -20,9 +21,10 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = []
   currentRecipe: Recipe | undefined;
 
-  constructor(private recipesRepository: RecipesRepository) {}
+  constructor(private recipesRepository: RecipesRepository, private router: Router) {}
 
   ngOnInit(): void {
+    console.log(this.router.url)
     this.TOP_RECIPE_IDS.forEach((id) => {
       const subscription = this.recipesRepository.getOneRecipe(id).subscribe((recipe) => {
         this.recipesToCarousel.push(recipe);

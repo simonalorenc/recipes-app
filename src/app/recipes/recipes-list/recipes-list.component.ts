@@ -31,19 +31,24 @@ export class RecipesListComponent implements OnInit, OnChanges {
     this.changeRecipesByMealType()
   }
 
-  getAllRecipes() {
+  private getAllRecipes() {
     this.recipesRepository.getRecipes().subscribe((recipes) => {
       this.recipes = recipes;
-      console.log(recipes)
     });
   }
 
   changeRecipesByMealType() {
     if (this.isMealTypeChoosed) {
       this.recipes = this.meals
-      console.log(this.meals);
     } else {
       this.getAllRecipes()
+    }
+  }
+
+  getMealTypeClass(mealType: string) {
+    return {
+      'meal-type__small': mealType.length < 6,
+      'meal-type__big': mealType.length >= 6
     }
   }
 }

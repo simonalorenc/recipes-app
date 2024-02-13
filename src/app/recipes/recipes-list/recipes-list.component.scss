@@ -37,12 +37,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 20px;
-    right: 20px;
-    width: 80px;
-    height: 80px;
     border-radius: 50%;
     padding: 20px;
     transform: rotate(20deg);
     background-color: $text-primary;
+    font-size: 14px;
+
+    &__small {
+        width: 50px;
+        height: 50px;
+    }
+
+    &__big {
+        width: 63px;
+        height: 63px;
+    }
 }
+
