@@ -13,9 +13,8 @@ import { ApiService } from '../data/api.service';
 })
 export class RecipesListComponent implements OnInit {
   recipes!: Recipe[]
-  tags!: string[]
 
-  constructor(private recipesRepository: RecipesRepository, private apiService: ApiService) {}
+  constructor(private recipesRepository: RecipesRepository) {}
 
   ngOnInit(): void {
     this.recipesRepository.getRecipes().subscribe(
