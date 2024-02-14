@@ -1,0 +1,40 @@
+<div class="container-flex custom">
+    <div class="d-flex bg-white m-5">
+        <div class="col col-6 d-flex justify-content-between">
+            <div class="content p-5 d-flex flex-column justify-content-between">
+                <div class="content__title">{{ recipe.name | uppercase }}</div>
+                <div class="d-flex justify-content-between">
+                    <div class="content__cuisine">
+                        <div>cuisine: {{ recipe.cuisine }}</div>
+                        <div>difficulty: {{ recipe.difficulty }}</div>
+                    </div>
+                    <div class="content__rating">{{ recipe.rating }}</div>
+                </div>
+                <div>
+                    <div class="content__ingridients">Ingridients: {{recipe.ingridients | space}}</div>
+                    <div class="content__instructions">{{recipe.instructions | space}}</div>
+                </div>
+                <div class="d-flex justify-content-around content__numbers">
+                    <div class="d-flex flex-column align-items-center">   
+                        <div class="fs-1">{{ recipe.timeToPrepare }}</div>
+                        <div>PREPARE</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">   
+                        <div class="fs-1">{{ recipe.cookTime }}</div>
+                        <div>COOK</div>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="fs-1">{{ recipe.servings }}</div>
+                        <div>SERVINGS</div>
+                    </div>
+                </div>
+                <div class="">
+                    <div>{{ recipe.tags }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-6 d-flex justify-content-end image-container">
+            <img [src]="recipe.imageUrl" class="recipe-image" alt="recipe-image"> 
+        </div>
+    </div>
+</div>

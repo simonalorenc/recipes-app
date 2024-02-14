@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RecipesListComponent } from './recipes/recipes-list/recipes-list.component';
 import { MainComponent } from './main/main.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/landing-page/main/recipes-list', pathMatch: 'full' },
@@ -10,7 +11,8 @@ const routes: Routes = [
     { path: 'main', component: MainComponent, children: [
       { path: 'recipes-list', component: RecipesListComponent }
     ]},
-  ]}
+  ]},
+  { path: 'detail/:id', component: RecipeDetailComponent }
 ];
 
 @NgModule({

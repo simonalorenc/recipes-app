@@ -1,0 +1,19 @@
+.recipe-container {}
+
+.content {
+    color: black;
+    
+    & &__title {
+        font-size: 60px;
+    }
+}
+
+.image-container {
+    overflow: hidden;
+}
+
+.recipe-image {
+    height: 90vh;
+    object-fit: cover;
+    object-position: center;
+}

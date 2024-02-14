@@ -8,11 +8,13 @@ import {
 import { RecipesRepository } from '../data/recipes-repository';
 import { Recipe } from '../data/recipe';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.component';
 
 @Component({
   selector: 'app-recipes-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, RecipeDetailComponent],
   templateUrl: './recipes-list.component.html',
   styleUrl: './recipes-list.component.scss',
 })

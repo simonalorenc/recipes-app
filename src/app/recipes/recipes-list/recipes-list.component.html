@@ -26,7 +26,7 @@
       </div>
       <div>
         <div *ngFor="let mealType of recipe.mealType" class="meal-type" [ngClass]="getMealTypeClass(mealType)">{{ mealType }}</div>
-        <div class="position-absolute arrow"><h2>-></h2></div>
+        <div class="position-absolute arrow"><a routerLink="/detail/{{ recipe.id }}">-></a></div>
       </div>
     </div>
   </div>
