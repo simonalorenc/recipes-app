@@ -10,6 +10,7 @@ import { Recipe } from '../data/recipe';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.component';
+import { RecipesDataCache } from '../data/recipes-data-cache';
 
 @Component({
   selector: 'app-recipes-list',
@@ -29,7 +30,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
   LIMIT_RECIPES_NUMBER: number = 10
   SKIP_RECIPES_NUMBER: number = 0
 
-  constructor(private recipesRepository: RecipesRepository) {}
+  constructor(private recipesRepository: RecipesRepository, private recipesDataCache: RecipesDataCache) {}
 
   ngOnInit(): void {
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
@@ -40,6 +41,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
   }
 
   private getRecipes(limitNumber: number, skipNumber: number) {
+    console.log('cokolwiek')
     this.recipesRepository.getRecipes(limitNumber, skipNumber).subscribe((recipes) => {
       this.recipes = recipes;
     });
@@ -51,7 +53,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
       this.recipes = this.meals
       console.log('filtered by meal type')
     } else if (this.filterInputValue.trim() === '' && !this.isMealTypeChoosed) {
-      this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
+      // this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
       console.log('not filtered')
     } else if (this.filterInputValue.trim() !== '' && !this.isMealTypeChoosed) {
       this.filterRecipesList()
@@ -59,7 +61,6 @@ export class RecipesListComponent implements OnInit, OnChanges {
   }
 
   filterRecipesList() {
-    //jak filtrować skoro nie mamy od razu całej listy tylko pobieramy po 10 ?
     console.log('filtrujemy')
   }
 

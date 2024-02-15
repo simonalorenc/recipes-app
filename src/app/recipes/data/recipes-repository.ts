@@ -3,18 +3,23 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { ApiService } from 'src/app/recipes/data/api.service';
 import { Recipe } from './recipe';
 import { RecipeDto } from './recipe-dto';
+import { RecipesDataCache } from './recipes-data-cache';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipesRepository {
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private recipesDataCache: RecipesDataCache) {}
 
   getRecipes(limitNumber: number, skipNumber: number): Observable<Recipe[]> {
     return this.apiService.getRecpiesFromApi(limitNumber, skipNumber).pipe(
       map((recipeDtos: RecipeDto[]) => {
-        return recipeDtos.map((recipeDto: RecipeDto) => new Recipe(recipeDto));
+        return recipeDtos.map((recipeDto: RecipeDto) => {
+          const recipe = new Recipe(recipeDto)
+          this.recipesDataCache.saveRecipe(recipe)
+          return recipe
+        });
       })
     );
   }

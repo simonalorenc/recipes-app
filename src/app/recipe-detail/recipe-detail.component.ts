@@ -5,6 +5,7 @@ import { ApiService } from '../recipes/data/api.service';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CommonModule } from '@angular/common';
 import { SpacePipe } from '../space.pipe';
+import { RecipesDataCache } from '../recipes/data/recipes-data-cache';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -17,7 +18,7 @@ import { SpacePipe } from '../space.pipe';
 export class RecipeDetailComponent implements OnInit {
   recipe!: Recipe
 
-  constructor(private route: Router, private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository) {}
+  constructor(private route: Router, private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository, private recipesDataCache: RecipesDataCache) {}
 
   ngOnInit(): void {
     this.getRecipe()
@@ -25,9 +26,15 @@ export class RecipeDetailComponent implements OnInit {
 
   getRecipe() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    this.recipeRepository.getOneRecipe(id).subscribe(
-      recipe => {
-        this.recipe = recipe
-      }) 
+
+    const recipe = this.recipesDataCache.getRecipeById(id)
+    console.log(recipe)
+    if(recipe) {
+      this.recipe = recipe
+    } else  if (!recipe) {
+      this.recipeRepository.getOneRecipe(id).subscribe(
+        recipe => this.recipe = recipe
+      )
+    }
   }
 }
