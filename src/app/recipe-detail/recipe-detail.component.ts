@@ -28,7 +28,6 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeRepository.getOneRecipe(id).subscribe(
       recipe => {
         this.recipe = recipe
-        console.log(recipe)
       }) 
   }
 }

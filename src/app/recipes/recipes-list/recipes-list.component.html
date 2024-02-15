@@ -2,9 +2,7 @@
   <div
     class="recipe-container d-flex position-relative"
     *ngFor="let recipe of recipes"
-  >
-  <!-- nie position-absolute tylko własna kolumna -->
-    
+  >    
     <div class="d-flex p-4 content">
       <img [src]="recipe.imageUrl" class="image col-4" />
       <div
@@ -29,5 +27,10 @@
         <div class="position-absolute arrow"><a routerLink="/detail/{{ recipe.id }}">-></a></div>
       </div>
     </div>
+  </div>
+  <div class="d-flex flex-grow-1 justify-content-center">
+    <div class="fs-3" (click)="getPreviousPage(currentPage)">back</div>
+    <div class="fs-3">{{ currentPage }}</div>
+    <div class="fs-3" (click)="getNextPage(currentPage)">next</div>
   </div>
 </div>

@@ -13,13 +13,14 @@
       </div>
     </div>
     <div class="d-flex justify-conent-end align-items-end carousel position-relative">
-      <img [src]="currentRecipe?.imageUrl" class="carousel__image"> 
+      <a routerLink="/detail/{{currentRecipe?.id}}">
+      <img [src]="currentRecipe?.imageUrl" class="carousel__image"></a> 
       <div class="carousel__name position-absolute ms-3">{{ currentRecipe?.name | uppercase }}</div>
     </div>
     <div class="position-absolute option d-flex">
-      <div>option</div>
+      <div (click)="scrollToRecipesList('recipesList')">RECIPES</div>
       <div>option</div>
     </div>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet id="recipesList"></router-outlet>

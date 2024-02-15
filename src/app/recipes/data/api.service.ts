@@ -13,8 +13,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getRecpiesFromApi(): Observable<RecipeDto[]> {
-    return this.http.get<RecipesListDto>(this.RECIPES_URL + '?limit=50')
+  getRecpiesFromApi(limitNumber: number, skipNumber: number): Observable<RecipeDto[]> {
+    return this.http.get<RecipesListDto>(this.RECIPES_URL + `?limit=${limitNumber}&skip=${skipNumber}`)
       .pipe(map((recipes: RecipesListDto) => recipes.recipes));
   }
 
@@ -25,4 +25,5 @@ export class ApiService {
   getRecipesByMealType(mealType: string): Observable<RecipeDto[]> {
     return this.http.get<RecipesListDto>(this.RECIPE_BY_MEAL_TYPE_URL + `${mealType}`).pipe(map((recipes: RecipesListDto) => recipes.recipes))
   }
+  
 }

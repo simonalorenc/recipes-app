@@ -11,8 +11,8 @@ export class RecipesRepository {
 
   constructor(private apiService: ApiService) {}
 
-  getRecipes(): Observable<Recipe[]> {
-    return this.apiService.getRecpiesFromApi().pipe(
+  getRecipes(limitNumber: number, skipNumber: number): Observable<Recipe[]> {
+    return this.apiService.getRecpiesFromApi(limitNumber, skipNumber).pipe(
       map((recipeDtos: RecipeDto[]) => {
         return recipeDtos.map((recipeDto: RecipeDto) => new Recipe(recipeDto));
       })

@@ -22,20 +22,25 @@ export class RecipesListComponent implements OnInit, OnChanges {
   recipes!: Recipe[];
   @Input() isMealTypeChoosed!: boolean;
   @Input() meals: Recipe[] = [];
+  @Input() filteredRecipes: Recipe[] = []
+  currentPage: number = 1
+  LIMIT_RECIPES_NUMBER: number = 10
+  SKIP_RECIPES_NUMBER: number = 0
 
   constructor(private recipesRepository: RecipesRepository) {}
 
   ngOnInit(): void {
-    this.getAllRecipes()
+    this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.changeRecipesByMealType()
   }
 
-  private getAllRecipes() {
-    this.recipesRepository.getRecipes().subscribe((recipes) => {
+  private getRecipes(limitNumber: number, skipNumber: number) {
+    this.recipesRepository.getRecipes(limitNumber, skipNumber).subscribe((recipes) => {
       this.recipes = recipes;
+      console.log(this.recipes)
     });
   }
 
@@ -43,7 +48,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
     if (this.isMealTypeChoosed) {
       this.recipes = this.meals
     } else {
-      this.getAllRecipes()
+      this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
     }
   }
 
@@ -52,5 +57,19 @@ export class RecipesListComponent implements OnInit, OnChanges {
       'meal-type__small': mealType.length < 6,
       'meal-type__big': mealType.length >= 6
     }
+  }
+
+  getNextPage(currentPage: number) {
+    this.currentPage = currentPage
+    this.currentPage++
+    this.SKIP_RECIPES_NUMBER = this.SKIP_RECIPES_NUMBER + 10
+    this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER )
+  }
+
+  getPreviousPage(currentPage: number) {
+    this.currentPage = currentPage
+    this.currentPage--
+    this.SKIP_RECIPES_NUMBER = this.SKIP_RECIPES_NUMBER - 10
+    this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
   }
 }

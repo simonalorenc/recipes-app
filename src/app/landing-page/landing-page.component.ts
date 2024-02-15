@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { Recipe } from '../recipes/data/recipe';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = []
   currentRecipe: Recipe | undefined;
 
-  constructor(private recipesRepository: RecipesRepository, private router: Router) {}
+  constructor(private recipesRepository: RecipesRepository, private router: Router, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
     console.log(this.router.url)
@@ -48,5 +48,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       this.currentIndex = (this.currentIndex + 1) % this.recipesToCarousel.length;
       this.currentRecipe = this.recipesToCarousel[this.currentIndex];
     }, this.CAROUSEL_INTERVAL);
+  }
+
+  scrollToRecipesList(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId)
   }
 }
