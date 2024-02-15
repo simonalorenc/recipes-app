@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { Recipe } from '../recipes/data/recipe';
 import { CommonModule, ViewportScroller } from '@angular/common';
@@ -20,8 +20,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private currentIndex: number = 0;
   private subscriptions: Subscription[] = []
   currentRecipe: Recipe | undefined;
+  private lastScrollTop = 0;
 
-  constructor(private recipesRepository: RecipesRepository, private router: Router, private viewportScroller: ViewportScroller) {}
+  constructor(private recipesRepository: RecipesRepository, private router: Router, private viewportScroller: ViewportScroller, private el: ElementRef) {}
 
   ngOnInit(): void {
     this.TOP_RECIPE_IDS.forEach((id) => {
@@ -42,8 +43,19 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription.unsubscribe())
   }
 
-  @HostListener('window:scroll', ['event']) onScroll(event: Event) {
-    console.log('scrolluje')
+  @ViewChild('carousel') carouselRef!: ElementRef
+
+  //sprawdzić z document: scroll
+  @HostListener('window:scroll', ['event']) onScroll() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop
+    const translateX = (scrollTop * 0.8) + 'px'
+    const carousel = this.carouselRef.nativeElement as HTMLDivElement
+
+    if (scrollTop > this.lastScrollTop) {
+      carousel.style.transform = `translate(${translateX}, 0)`
+    } else {
+      carousel.style.transform = `translate(${translateX}, 0)`
+    }
   }
 
   private startCarousel(): void {

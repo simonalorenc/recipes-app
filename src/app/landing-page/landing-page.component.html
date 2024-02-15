@@ -1,4 +1,4 @@
-<div (scroll)="onScroll($event)"
+<div (scroll)="onScroll()"
 >
   <nav>
     <div class="landing-page d-flex justify-content-between">
@@ -14,7 +14,7 @@
           </h4>
         </div>
       </div>
-      <div class="d-flex justify-conent-end align-items-end carousel position-relative">
+      <div class="d-flex justify-conent-end align-items-end carousel position-relative" #carousel>
         <a routerLink="/detail/{{currentRecipe?.id}}">
         <img [src]="currentRecipe?.imageUrl" class="carousel__image"></a> 
         <div class="carousel__name position-absolute ms-3">{{ currentRecipe?.name | uppercase }}</div>
