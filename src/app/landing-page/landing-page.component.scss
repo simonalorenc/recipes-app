@@ -34,10 +34,11 @@
 
 .carousel {
   overflow: hidden;
+  animation: animation 4s ease-in-out 1;
+
 
   & &__image {
     height: 100vh;
-    // animation: animation 4s ease-in-out 1;
     object-fit: cover;
     object-position: center;
   }
@@ -48,7 +49,6 @@
     color: $text-primary;
   }
 }
-
 
 @keyframes animation {
   0% {

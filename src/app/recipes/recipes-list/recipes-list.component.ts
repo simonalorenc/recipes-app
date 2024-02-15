@@ -21,8 +21,10 @@ import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.compo
 export class RecipesListComponent implements OnInit, OnChanges {
   recipes!: Recipe[];
   @Input() isMealTypeChoosed!: boolean;
+  @Input() isMealTypeDeleted!: boolean
   @Input() meals: Recipe[] = [];
-  @Input() filteredRecipes: Recipe[] = []
+  @Input() filterInputValue!: string
+  filteredRecipes: Recipe[] = []
   currentPage: number = 1
   LIMIT_RECIPES_NUMBER: number = 10
   SKIP_RECIPES_NUMBER: number = 0
@@ -40,16 +42,25 @@ export class RecipesListComponent implements OnInit, OnChanges {
   private getRecipes(limitNumber: number, skipNumber: number) {
     this.recipesRepository.getRecipes(limitNumber, skipNumber).subscribe((recipes) => {
       this.recipes = recipes;
-      console.log(this.recipes)
     });
   }
 
   changeRecipesByMealType() {
+    console.log( this.isMealTypeDeleted)
     if (this.isMealTypeChoosed) {
       this.recipes = this.meals
-    } else {
+      console.log('filtered by meal type')
+    } else if (this.filterInputValue.trim() === '' && !this.isMealTypeChoosed) {
       this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
+      console.log('not filtered')
+    } else if (this.filterInputValue.trim() !== '' && !this.isMealTypeChoosed) {
+      this.filterRecipesList()
     }
+  }
+
+  filterRecipesList() {
+    //jak filtrować skoro nie mamy od razu całej listy tylko pobieramy po 10 ?
+    console.log('filtrujemy')
   }
 
   getMealTypeClass(mealType: string) {

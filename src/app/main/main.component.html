@@ -2,14 +2,32 @@
   <div class="container-flex">
     <div class="d-flex flex-column justify-conent-start filters my-5 mx-3">
       <div class="d-flex">
-        <input type="text" placeholder="search the meal" class="rounded-pill flex-grow-1" #searchInput />
-        <div class="ms-4" (click)="deleteMealTypeFilter()">X</div>
+        <input
+          type="text"
+          placeholder="search the meal"
+          class="rounded-pill flex-grow-1"
+          (keydown)="
+            getFilterInputValue(searchInput.value); deleteMealTypeFilter()
+          "
+          #searchInput
+        />
+        <div class="ms-4" (click)="deleteMealTypeFilter(); clearFilterInput()">
+          X
+        </div>
       </div>
       <div class="d-flex justify-content-between">
-        <div class="d-flex mt-3" *ngFor="let mealType of mealTypes; let last = last">
+        <div
+          class="d-flex mt-3"
+          *ngFor="let mealType of mealTypes; let last = last"
+        >
           <div class="d-flex">
-            <div  class="meal-type d-flex" [style.marginRight.px]="last ? 0 : 30">
-              <span (click)="changeRecipesByMealType(mealType)">{{ mealType }}</span> 
+            <div
+              class="meal-type d-flex"
+              [style.marginRight.px]="last ? 0 : 30"
+            >
+              <span (click)="changeRecipesByMealType(mealType)">{{
+                mealType
+              }}</span>
             </div>
             <!-- <span *ngIf="!last" class="separator"> | </span> -->
           </div>
@@ -22,9 +40,14 @@
           <div></div>
         </div>
         <div class="col">
-          <app-recipes-list [isMealTypeChoosed]="isMealTypeChoosed" [meals]="meals"></app-recipes-list>
+          <app-recipes-list
+            [filterInputValue]="filterInputValue"
+            [isMealTypeChoosed]="isMealTypeChoosed"
+            [isMealTypeDeleted]="isMealTypeDeleted"
+            [meals]="meals"
+          ></app-recipes-list>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </main>

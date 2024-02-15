@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { Recipe } from '../recipes/data/recipe';
 import { CommonModule, ViewportScroller } from '@angular/common';
@@ -24,7 +24,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   constructor(private recipesRepository: RecipesRepository, private router: Router, private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
-    console.log(this.router.url)
     this.TOP_RECIPE_IDS.forEach((id) => {
       const subscription = this.recipesRepository.getOneRecipe(id).subscribe((recipe) => {
         this.recipesToCarousel.push(recipe);
@@ -41,6 +40,10 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe())
+  }
+
+  @HostListener('window:scroll', ['event']) onScroll(event: Event) {
+    console.log('scrolluje')
   }
 
   private startCarousel(): void {

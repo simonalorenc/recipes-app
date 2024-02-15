@@ -17,10 +17,16 @@ export class MainComponent {
 
   mealTypes: string[] = ['dinner', 'lunch', 'snack', 'dessert', 'side dish', 'appetizer', 'breakfast', 'beverage']
   meals: Recipe[] = []
-  filteredRecipes: Recipe[] = []
+  filterInputValue: string = ''
   isMealTypeChoosed: boolean = false
+  isMealTypeDeleted: boolean = true
 
   constructor(private recipesRepository: RecipesRepository) {
+  }
+
+  getFilterInputValue(text: string) {
+    this.searchInput.nativeElement.value = text
+    this.filterInputValue = text
   }
 
   changeRecipesByMealType(mealType: string): void {
@@ -29,12 +35,18 @@ export class MainComponent {
         this.meals = recipes
         this.searchInput.nativeElement.value = mealType
         this.isMealTypeChoosed = true
+        this.isMealTypeDeleted = false
+        console.log(this.isMealTypeChoosed)
       } 
     )
   }
 
   deleteMealTypeFilter(): void {
+    this.isMealTypeDeleted = true
     this.isMealTypeChoosed = false
+  }
+
+  clearFilterInput() {
     this.searchInput.nativeElement.value = ''
   }
 }
