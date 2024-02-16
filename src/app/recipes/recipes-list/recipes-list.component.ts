@@ -11,11 +11,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.component';
 import { RecipesDataCache } from '../data/recipes-data-cache';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconDefinition, faChevronRight, faChevronLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipes-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, RecipeDetailComponent],
+  imports: [CommonModule, RouterModule, RecipeDetailComponent, FontAwesomeModule],
   templateUrl: './recipes-list.component.html',
   styleUrl: './recipes-list.component.scss',
 })
@@ -27,8 +29,12 @@ export class RecipesListComponent implements OnInit, OnChanges {
   @Input() filterInputValue!: string
   filteredRecipes: Recipe[] = []
   currentPage: number = 1
+  totalNumberOfPages: number = 5
   LIMIT_RECIPES_NUMBER: number = 10
   SKIP_RECIPES_NUMBER: number = 0
+  nextIcon: IconDefinition = faChevronRight
+  previousIcon: IconDefinition = faChevronLeft
+  arrowRightIcon: IconDefinition = faArrowRight
 
   constructor(private recipesRepository: RecipesRepository, private recipesDataCache: RecipesDataCache) {}
 
@@ -37,31 +43,38 @@ export class RecipesListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.changeRecipesByMealType()
+    this.changeRecipesByMealType(this.filterInputValue)
   }
 
   private getRecipes(limitNumber: number, skipNumber: number) {
-    console.log('cokolwiek')
     this.recipesRepository.getRecipes(limitNumber, skipNumber).subscribe((recipes) => {
       this.recipes = recipes;
     });
   }
 
-  changeRecipesByMealType() {
-    console.log( this.isMealTypeDeleted)
+  changeRecipesByMealType(value: string) {
     if (this.isMealTypeChoosed) {
       this.recipes = this.meals
-      console.log('filtered by meal type')
-    } else if (this.filterInputValue.trim() === '' && !this.isMealTypeChoosed) {
-      // this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
-      console.log('not filtered')
-    } else if (this.filterInputValue.trim() !== '' && !this.isMealTypeChoosed) {
-      this.filterRecipesList()
+      if (this.recipes.length > 10) {
+        this.totalNumberOfPages = 1
+      }
+    } else if (value === '' && !this.isMealTypeChoosed) {
+      this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
+      this.totalNumberOfPages = 5
+    } else if (value !== '' && !this.isMealTypeChoosed) {
+      this.filterRecipesList(value)
     }
   }
 
-  filterRecipesList() {
-    console.log('filtrujemy')
+  filterRecipesList(value: string) {
+    this.recipesRepository.searchRecipes(value).subscribe(
+      recipes => {
+        this.recipes = recipes
+        if (this.recipes.length > 10) {
+          this.totalNumberOfPages = 1
+        }
+      }
+    )
   }
 
   getMealTypeClass(mealType: string) {

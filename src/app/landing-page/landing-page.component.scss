@@ -16,20 +16,34 @@
   gap: 40px;
 }
 
-.title-container {
+.title {
   top: 35vh;
   left: 10vh;
   z-index: 1;
+
+  & &__main {
+    font-size: 75px;
+    color: $text-primary;
+  }
+
+  & &__add {
+    max-width: 600px;
+    color: $text-primary;
+  }
 }
 
-.title {
-  font-size: 75px;
-  color: $text-primary;
+.dot-container {
+    display: flex;
+    position: absolute;
+    left: 50%;
 }
 
-.title-add {
-  max-width: 600px;
-  color: $text-primary;
+.dot {
+    width: 10px;
+    height: 10px;
+    // background-color: red;
+    border: solid white 1px;
+    border-radius: 50%;
 }
 
 .carousel {
@@ -40,6 +54,16 @@
     height: 100vh;
     object-fit: cover;
     object-position: center;
+  }
+
+  & &__arrow-left {
+    top: 60%;
+    left: 10px;
+  }
+
+  & &__arrow-right {
+    top: 60%;
+    right: 10px;
   }
 
   & &__name {

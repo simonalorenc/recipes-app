@@ -37,4 +37,12 @@ export class RecipesRepository {
       })
     )
   }
+
+  searchRecipes(value: string): Observable<Recipe[]> {
+    return this.apiService.searchRecipes(value).pipe(
+      map((recipesDto: RecipeDto[]) => {
+        return recipesDto.map((recipeDto: RecipeDto) => new Recipe(recipeDto))
+      })
+    )
+  }
 }

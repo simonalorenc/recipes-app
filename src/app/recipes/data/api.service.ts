@@ -10,6 +10,7 @@ export class ApiService {
   private RECIPES_URL: string = 'https://dummyjson.com/recipes';
   private RECIPE_URL: string = 'https://dummyjson.com/recipes/';
   private RECIPE_BY_MEAL_TYPE_URL: string = 'https://dummyjson.com/recipes/meal-type/'
+  private SEARCH_RECIPE: string = 'https://dummyjson.com/recipes/search?q='
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +25,10 @@ export class ApiService {
 
   getRecipesByMealType(mealType: string): Observable<RecipeDto[]> {
     return this.http.get<RecipesListDto>(this.RECIPE_BY_MEAL_TYPE_URL + `${mealType}`).pipe(map((recipes: RecipesListDto) => recipes.recipes))
+  }
+
+  searchRecipes(value: string): Observable<RecipeDto[]> {
+     return this.http.get<RecipesListDto>(this.SEARCH_RECIPE + `${value}`).pipe(map((recipes: RecipesListDto) => recipes.recipes))
   }
   
 }

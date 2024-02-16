@@ -24,13 +24,17 @@
       </div>
       <div>
         <div *ngFor="let mealType of recipe.mealType" class="meal-type" [ngClass]="getMealTypeClass(mealType)">{{ mealType }}</div>
-        <div class="position-absolute arrow"><a [routerLink]="['/detail', recipe.id]">-></a></div>
+        <div class="position-absolute arrow"><a [routerLink]="['/detail', recipe.id]"><fa-icon [icon]="arrowRightIcon" class="arrow__icon"></fa-icon></a></div>
       </div>
     </div>
   </div>
-  <div class="d-flex flex-grow-1 justify-content-center">
-    <div class="fs-3" (click)="getPreviousPage(currentPage)">back</div>
-    <div class="fs-3">{{ currentPage }}</div>
-    <div class="fs-3" (click)="getNextPage(currentPage)">next</div>
+  <div class="d-flex flex-grow-1 justify-content-center align-items-center pagination">
+    <div class="d-flex align-items-center justify-content-center pagination__button" (click)="getPreviousPage(currentPage)">
+      <fa-icon [icon]="previousIcon" size="xs"></fa-icon>
+    </div>
+    <div class="pagination__current-page mx-3">page {{ currentPage }} of {{ totalNumberOfPages }}</div>
+    <div class="d-flex align-items-center justify-content-center pagination__button" (click)="getNextPage(currentPage)">
+      <fa-icon [icon]="nextIcon" size="xs"></fa-icon>
+    </div>
   </div>
 </div>

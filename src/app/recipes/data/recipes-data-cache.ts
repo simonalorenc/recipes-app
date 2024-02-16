@@ -9,7 +9,7 @@ export class RecipesDataCache {
 
     saveRecipe(recipe: Recipe) {
         this.recipesMap.set(recipe.id, recipe)
-        console.log(this.recipesMap)
+        // console.log(this.recipesMap)
     }
 
     getRecipeById(id: number): Recipe | undefined {

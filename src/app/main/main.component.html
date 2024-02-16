@@ -6,13 +6,13 @@
           type="text"
           placeholder="search the meal"
           class="rounded-pill flex-grow-1"
-          (keydown)="
+          (input)="
             getFilterInputValue(searchInput.value); deleteMealTypeFilter()
           "
           #searchInput
         />
-        <div class="ms-4" (click)="deleteMealTypeFilter(); clearFilterInput()">
-          X
+        <div class="ms-4 d-flex justify-content-center align-items-center" (click)="deleteMealTypeFilter(); clearFilterInput()">
+          <fa-icon [icon]="faXmark" class="clear" size="2x"></fa-icon>
         </div>
       </div>
       <div class="d-flex justify-content-between">

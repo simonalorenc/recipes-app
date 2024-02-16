@@ -4,9 +4,9 @@
     <div class="landing-page d-flex justify-content-between">
       <div class="position-absolute logo">LOGO</div>
       <div class="col-6 d-flex">
-        <div class="position-absolute title-container">
-          <h1 class="title">LOOOOONG TITLE</h1>
-          <h4 class="title-add">
+        <div class="position-absolute title">
+          <h1 class="title__main">LOOOOONG TITLE</h1>
+          <h4 class="title__add">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero totam
             aspernatur, natus eos quo beatae voluptatum nisi adipisci, nemo
             perspiciatis aut laborum suscipit illo quia enim doloremque ad at
@@ -17,7 +17,12 @@
       <div class="d-flex justify-conent-end align-items-end carousel position-relative" #carousel>
         <a routerLink="/detail/{{currentRecipe?.id}}">
         <img [src]="currentRecipe?.imageUrl" class="carousel__image"></a> 
+        <fa-icon [icon]="previousIcon" class="position-absolute carousel__arrow-left" size="3x" (click)="getPreviousRecipe()"></fa-icon>
+        <fa-icon [icon]="nextIcon" class="position-absolute carousel__arrow-right" size="3x" (click)="getNextRecipe()"></fa-icon>
         <div class="carousel__name position-absolute ms-3">{{ currentRecipe?.name | uppercase }}</div>
+        <div class="position-absolute d-flex dot-container m-2" *ngIf="currentRecipe">
+          <div class="dot mx-1" *ngFor="let recipe of recipesToCarousel" [style.backgroundColor]="(currentRecipe.id === recipe.id) ? 'white' : 'initial'"></div>
+        </div>
       </div>
       <div class="position-absolute option d-flex">
         <div (click)="scrollToRecipesList('recipesList')">RECIPES</div>

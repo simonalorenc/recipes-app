@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { Recipe } from '../recipes/data/recipe';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconDefinition, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RecipesListComponent, CommonModule, RouterModule],
+  imports: [RecipesListComponent, CommonModule, RouterModule, FontAwesomeModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -20,6 +22,7 @@ export class MainComponent {
   filterInputValue: string = ''
   isMealTypeChoosed: boolean = false
   isMealTypeDeleted: boolean = true
+  faXmark: IconDefinition = faTimes
 
   constructor(private recipesRepository: RecipesRepository) {
   }
