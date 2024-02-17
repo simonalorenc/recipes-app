@@ -1,29 +1,68 @@
 @import '/src/variables.scss';
 
 .recipe-container {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
     border-top: 1.5px solid $text-primary;
+}
+
+.recipe-container .content__title {
+    position: relative;
+    display: inline-block;
+}
+
+.recipe-container:hover .content__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; /* Początkowa szerokość */
+    height: 10px;
+    background-color: $text-primary;
+    transition: width 0.5s ease; 
+    animation: underlineAnimation 1s ease forwards;
+    z-index: -1;
+}
+
+.recipe-container .content__title::after {
+    width: 100%;
+    animation: underlineAnimation 1s ease forwards;
+}
+
+@keyframes underlineAnimation {
+    to {
+      width: 100%;
+      height: 40%;
+    }
 }
 
 .image {
     width: 130px;
     height: 130px;
-    border: solid 20px $text-primary;
+    border: solid 1px $text-primary;
     border-radius: 50%;
     filter: saturate(85%) contrast(95%);
 }
 
 .content {
     width: 100%;
+    font-weight: 300;
 
     & &__title {
         margin: 0;
         padding: 0;
-        font-weight: 300;
     }
 
     & &__text {
         font-weight: 300;
         font-size: 18px;
+    }
+
+    & &__tag {
+        font-size: 18px;
+        color: $text-primary;
+        font-weight: 400;
     }
 }
 
@@ -43,7 +82,7 @@
     border-radius: 50%;
     padding: 20px;
     transform: rotate(20deg);
-    background-color: $text-primary;
+    border: solid 2px $text-primary;
     font-size: 14px;
 
     &__small {

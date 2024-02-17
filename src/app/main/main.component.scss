@@ -1,3 +1,5 @@
+@import "/src/variables.scss";
+
 input {
     outline: none;
     border: none;
@@ -15,4 +17,10 @@ input {
 .separator {
     flex: 1;
     text-align: center;
+}
+
+.text {
+    font-size: 80px;
+    font-size: 600;
+    color: $text-primary;
 }
