@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faXTwitter, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [FontAwesomeModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-
+  twitterIcon: IconDefinition = faXTwitter
+  facebookIcon: IconDefinition = faFacebook
+  instagramIcon: IconDefinition = faInstagram
 }

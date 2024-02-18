@@ -6,11 +6,12 @@ import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RecipesListComponent, CommonModule, RouterModule, FontAwesomeModule],
+  imports: [RecipesListComponent, CommonModule, RouterModule, FontAwesomeModule, FooterComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

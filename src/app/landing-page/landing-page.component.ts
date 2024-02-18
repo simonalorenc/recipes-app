@@ -67,7 +67,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   @ViewChild('carousel') carouselRef!: ElementRef;
 
-  //sprawdzić z document: scroll
   @HostListener('window:scroll', ['event']) onScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const translateX = scrollTop * 0.8 + 'px';
