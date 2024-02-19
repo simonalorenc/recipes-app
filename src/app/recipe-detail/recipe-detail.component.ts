@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../recipes/data/recipe';
-import { ApiService } from '../recipes/data/api.service';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CommonModule } from '@angular/common';
 import { SpacePipe } from '../space.pipe';
@@ -28,7 +27,6 @@ export class RecipeDetailComponent implements OnInit {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
 
     const recipe = this.recipesDataCache.getRecipeById(id)
-    console.log(recipe)
     if(recipe) {
       this.recipe = recipe
     } else  if (!recipe) {

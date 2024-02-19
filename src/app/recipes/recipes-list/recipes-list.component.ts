@@ -10,9 +10,8 @@ import { Recipe } from '../data/recipe';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.component';
-import { RecipesDataCache } from '../data/recipes-data-cache';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IconDefinition, faChevronRight, faChevronLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipes-list',
@@ -27,23 +26,21 @@ export class RecipesListComponent implements OnInit, OnChanges {
   @Input() isMealTypeDeleted!: boolean
   @Input() meals: Recipe[] = [];
   @Input() filterInputValue!: string
-  filteredRecipes: Recipe[] = []
   currentPage: number = 1
   totalNumberOfPages: number = 5
   LIMIT_RECIPES_NUMBER: number = 10
   SKIP_RECIPES_NUMBER: number = 0
   nextIcon: IconDefinition = faChevronRight
   previousIcon: IconDefinition = faChevronLeft
-  arrowRightIcon: IconDefinition = faArrowRight
 
-  constructor(private recipesRepository: RecipesRepository, private recipesDataCache: RecipesDataCache) {}
+  constructor(private recipesRepository: RecipesRepository) {}
 
   ngOnInit(): void {
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.changeRecipesByMealType(this.filterInputValue)
+    this.renderRecipesList(this.filterInputValue)
   }
 
   private getRecipes(limitNumber: number, skipNumber: number) {
@@ -52,7 +49,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
     });
   }
 
-  changeRecipesByMealType(value: string) {
+  renderRecipesList(value: string) {
     if (this.isMealTypeChoosed) {
       this.recipes = this.meals
       if (this.recipes.length > 10) {
@@ -77,7 +74,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
     )
   }
 
-  getMealTypeClass(mealType: string) {
+  getMealTypeClassInTemplate(mealType: string) {
     return {
       'meal-type__small': mealType.length < 6,
       'meal-type__big': mealType.length >= 6

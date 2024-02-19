@@ -17,7 +17,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0; /* Początkowa szerokość */
+    width: 0;
     height: 10px;
     background-color: $text-primary;
     transition: width 0.5s ease; 
@@ -63,15 +63,6 @@
         font-size: 18px;
         color: $text-primary;
         font-weight: 400;
-    }
-}
-
-.arrow {
-    bottom: 30px;
-    right: 30px;
-
-    & &__icon {
-        color: white;
     }
 }
 

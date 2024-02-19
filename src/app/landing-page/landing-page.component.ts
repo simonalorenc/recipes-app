@@ -10,7 +10,7 @@ import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { Recipe } from '../recipes/data/recipe';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   IconDefinition,
@@ -39,9 +39,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private recipesRepository: RecipesRepository,
-    private router: Router,
     private viewportScroller: ViewportScroller,
-    private el: ElementRef
   ) {}
 
   ngOnInit(): void {

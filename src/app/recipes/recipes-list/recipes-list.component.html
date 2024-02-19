@@ -6,7 +6,7 @@
     <div class="d-flex p-4 content">
       <img [src]="recipe.imageUrl" class="image col-4" />
       <div
-        class="col-8 ms-4 d-flex justify-content-between flex-column"
+        class="ms-4 d-flex justify-content-between flex-column"
       >
       <div>
         <h2 class="content__title">{{ recipe.name | uppercase }}</h2>
@@ -23,9 +23,8 @@
           </div>
         </div>
       </div>
-      <div>
-        <div *ngFor="let mealType of recipe.mealType" class="meal-type" [ngClass]="getMealTypeClass(mealType)">{{ mealType }}</div>
-        <div class="position-absolute arrow"><fa-icon [icon]="arrowRightIcon" class="arrow__icon"></fa-icon></div>
+      <div class="d-flex flex-column align-items-end flex-grow-1">
+        <div *ngFor="let mealType of recipe.mealType" class="meal-type" [ngClass]="getMealTypeClassInTemplate(mealType)">{{ mealType }}</div>
       </div>
     </div>
   </div>

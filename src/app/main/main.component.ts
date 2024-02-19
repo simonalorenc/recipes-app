@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RecipesListComponent } from '../recipes/recipes-list/recipes-list.component';
 import { CommonModule } from '@angular/common';
 import { Recipe } from '../recipes/data/recipe';
@@ -23,7 +23,7 @@ export class MainComponent {
   filterInputValue: string = ''
   isMealTypeChoosed: boolean = false
   isMealTypeDeleted: boolean = true
-  faXmark: IconDefinition = faTimes
+  clearIcon: IconDefinition = faTimes
 
   constructor(private recipesRepository: RecipesRepository) {
   }
