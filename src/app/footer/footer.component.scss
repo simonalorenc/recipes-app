@@ -1,5 +1,9 @@
 @import "/src/variables.scss";
 
+.custom {
+  overflow-x: hidden;
+}
+
 .animation-container {
     display: block;
     border-top: solid 1px white;
@@ -60,10 +64,11 @@
   background: $text-primary;
   border-radius: 50%;
   transform: scale(0);
-  transition: transform ease-in-out 1s;
+  transition: transform ease-in-out .35s;
   z-index: -1;
 }
 
 .image:hover::before {
   transform: scale(1);
 }
+

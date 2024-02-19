@@ -5,7 +5,7 @@
         <input
           type="text"
           placeholder="search the meal"
-          class="rounded-pill flex-grow-1"
+          class="rounded-pill flex-grow-1 p-2"
           (input)="
             getFilterInputValue(searchInput.value); deleteMealTypeFilter()
           "
@@ -15,21 +15,15 @@
           <fa-icon [icon]="clearIcon" class="clear" size="2x"></fa-icon>
         </div>
       </div>
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between flex-wrap custom">
         <div
           class="d-flex mt-3"
           *ngFor="let mealType of mealTypes; let last = last"
         >
-          <div class="d-flex">
-            <div
-              class="meal-type d-flex"
-              [style.marginRight.px]="last ? 0 : 30"
-            >
-              <span (click)="changeRecipesByMealType(mealType)">{{
+          <div class="d-flex meal-type">
+              <span [ngStyle]="{ 'margin-right.px': last ? 0 : undefined }" (click)="changeRecipesByMealType(mealType)">{{
                 mealType
               }}</span>
-            </div>
-            <!-- <span *ngIf="!last" class="separator"> | </span> -->
           </div>
         </div>
       </div>
