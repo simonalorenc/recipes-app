@@ -19,11 +19,11 @@ export class RecipeDetailComponent implements OnInit {
   recipe!: Recipe
   isMobile!: boolean
 
+  //zbedny router
   constructor(private route: Router, private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository, private recipesDataCache: RecipesDataCache) {}
 
   ngOnInit(): void {
     this.getRecipe()
-    this.checkScreenWidth()
   }
 
   @HostListener('window:resize', ['$event'])
@@ -31,6 +31,7 @@ export class RecipeDetailComponent implements OnInit {
     this.checkScreenWidth()
   }
 
+  //private?
   getRecipe() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
 
@@ -44,10 +45,10 @@ export class RecipeDetailComponent implements OnInit {
     }
   }
 
+  //private?
   checkScreenWidth(): boolean {
+    //po co return? wykorzystac zmienna
     this.isMobile = window.innerWidth <= 992
-    console.log(window.innerWidth)
-    console.log(this.isMobile)
     return this.isMobile
   }
 }

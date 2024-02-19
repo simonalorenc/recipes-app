@@ -31,7 +31,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   recipesToCarousel: Recipe[] = [];
   private currentIndex: number = 0;
-  private subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = []; //sprawdzic czy jest w innych wykorzystaniach rx subscribe
   currentRecipe: Recipe | undefined;
   private lastScrollTop = 0;
   nextIcon: IconDefinition = faChevronRight;
@@ -67,14 +67,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', ['event']) onScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const translateX = scrollTop * 0.8 + 'px';
+    const translateX = scrollTop * 0.8;
     const carousel = this.carouselRef.nativeElement as HTMLDivElement;
-
-    if (scrollTop > this.lastScrollTop) {
-      carousel.style.transform = `translate(${translateX}, 0)`;
-    } else {
-      carousel.style.transform = `translate(${translateX}, 0)`;
-    }
+    carousel.style.transform = `translate(${translateX}px, 0)`;
   }
 
   private startCarousel(): void {

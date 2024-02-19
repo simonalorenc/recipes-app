@@ -24,7 +24,9 @@ export class RecipesRepository {
     );
   }
 
+  //wystarczy nazwa getRecipe, po typie widać ze jest jeden
   getOneRecipe(id: number): Observable<Recipe> {
+    //tutaj nalezy wykorzystac cache i sprawdzic czy recipe o takim id nie jest dostepny zamast wrzykiwac cache w komponencie
     return this.apiService.getOneRecipeFromApi(id).pipe(
       map((recipeDto:RecipeDto) => new Recipe(recipeDto))
     )
@@ -33,6 +35,7 @@ export class RecipesRepository {
   getRecipesByMealType(mealType: string): Observable<Recipe[]> {
     return this.apiService.getRecipesByMealType(mealType).pipe(
       map((recipeDtos: RecipeDto[]) => {
+        //brakuje zapisu do cache proponuje wydzielic do osobnej metody
         return recipeDtos.map((recipeDto: RecipeDto) => new Recipe(recipeDto))
       })
     )
@@ -41,6 +44,7 @@ export class RecipesRepository {
   searchRecipes(value: string): Observable<Recipe[]> {
     return this.apiService.searchRecipes(value).pipe(
       map((recipesDto: RecipeDto[]) => {
+        //brakuje zapisu do cache proponuje wydzielic do osobnej metody
         return recipesDto.map((recipeDto: RecipeDto) => new Recipe(recipeDto))
       })
     )

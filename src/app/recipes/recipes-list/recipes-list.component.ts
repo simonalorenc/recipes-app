@@ -21,22 +21,23 @@ import { IconDefinition, faChevronRight, faChevronLeft } from '@fortawesome/free
   styleUrl: './recipes-list.component.scss',
 })
 export class RecipesListComponent implements OnInit, OnChanges {
-  recipes!: Recipe[];
+  recipes!: Recipe[]; //poproszę jakiś artykuł z tymi wykrzykikami, bo imo wygląda to źle
   @Input() isMealTypeChoosed!: boolean;
   @Input() isMealTypeDeleted!: boolean
   @Input() meals: Recipe[] = [];
   @Input() filterInputValue!: string
   currentPage: number = 1
-  totalNumberOfPages: number = 5
-  LIMIT_RECIPES_NUMBER: number = 10
-  SKIP_RECIPES_NUMBER: number = 0
+  totalNumberOfPages: number = 5 // skad to wiadomo? trzeba na podstwie respone z api
+  LIMIT_RECIPES_NUMBER: number = 10 //private
+  SKIP_RECIPES_NUMBER: number = 0 //private
   nextIcon: IconDefinition = faChevronRight
   previousIcon: IconDefinition = faChevronLeft
 
   constructor(private recipesRepository: RecipesRepository) {}
 
   ngOnInit(): void {
-    this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
+    //czy to jest potrzebne skoro meals są od rodzica?
+    //this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,6 +51,7 @@ export class RecipesListComponent implements OnInit, OnChanges {
   }
 
   renderRecipesList(value: string) {
+    //do weryfikacji logika, czemu 2 źródła prawdy? raz ładujemy recipels z repository w tym komponencie, a raz przekazujemy przez parenta (input meals)
     if (this.isMealTypeChoosed) {
       this.recipes = this.meals
       if (this.recipes.length > 10) {
@@ -76,20 +78,22 @@ export class RecipesListComponent implements OnInit, OnChanges {
 
   getMealTypeClassInTemplate(mealType: string) {
     return {
-      'meal-type__small': mealType.length < 6,
+      'meal-type__small': mealType.length < 6, //6 do zmiennej stałej
       'meal-type__big': mealType.length >= 6
     }
   }
 
   getNextPage(currentPage: number) {
-    this.currentPage = currentPage
+    //nie jest brany limit pod uwagę
+    // this.currentPage = currentPage  zbedne + argument funkcji
     this.currentPage++
     this.SKIP_RECIPES_NUMBER = this.SKIP_RECIPES_NUMBER + 10
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER )
   }
 
   getPreviousPage(currentPage: number) {
-    this.currentPage = currentPage
+        //nie jest brany limit pod uwagę
+    // this.currentPage = currentPage zbedne + arugment funkcji
     this.currentPage--
     this.SKIP_RECIPES_NUMBER = this.SKIP_RECIPES_NUMBER - 10
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, this.SKIP_RECIPES_NUMBER)

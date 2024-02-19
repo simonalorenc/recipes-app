@@ -29,18 +29,19 @@ export class MainComponent {
   }
 
   getFilterInputValue(text: string) {
-    this.searchInput.nativeElement.value = text
+    //this.searchInput.nativeElement.value = text
     this.filterInputValue = text
   }
 
+  //korzystac z repository w jednym miejscu do zarzadzania tym co jest na liscie
   changeRecipesByMealType(mealType: string): void {
     this.recipesRepository.getRecipesByMealType(mealType).subscribe(
       recipes => {
         this.meals = recipes
         this.searchInput.nativeElement.value = mealType
+        //wytlumaczyc czemu sa potrzebne dwie flagi, czy mogą przyjść kiedyś taką samą wartość?
         this.isMealTypeChoosed = true
         this.isMealTypeDeleted = false
-        console.log(this.isMealTypeChoosed)
       } 
     )
   }
