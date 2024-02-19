@@ -1,6 +1,11 @@
 .recipe-container {
     width: 100%;
     height: 100vh;
+
+    @media (max-width: 992px) {
+        margin: 100px 0;
+        height: auto;
+    }
 }
 
 .recipe {
@@ -11,17 +16,45 @@
     color: black;
 
     & &__title {
-        font-size: 33px;
+        line-height: 1.1;
+        letter-spacing: 4px;
+        font-size: 45px;
+        font-weight: 300;
+    }
+
+    & &__ingridients {
+        text-align: justify;
+    }
+
+    & &__instructions {
+        text-align: justify;
+    }
+
+    & &__numbers-text {
+        letter-spacing: 1px;
+    }
+
+    & &__numbers-number {
+        font-weight: 400;
+        font-size: 30px;
     }
 }
 
-.image-container {
-    overflow: hidden;
-}
+.image {
 
-.recipe-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    & &__recipe {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
+    & &__title {
+        font-size: 45px;
+        color: black;
+        bottom: 20px;
+    }
+
+    @media (max-width: 992px) {
+        order: -1;
+    }
 }

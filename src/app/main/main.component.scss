@@ -14,16 +14,11 @@ input {
     font-size: 18px;
 }
 
-.custom {
+.meal-type-container {
 
     @media (max-width: 768px) {
         grid-column-gap: 50px;
     }
-}
-
-.separator {
-    flex: 1;
-    text-align: center;
 }
 
 .text {

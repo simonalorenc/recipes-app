@@ -43,6 +43,11 @@
     border: solid 1px $text-primary;
     border-radius: 50%;
     filter: saturate(85%) contrast(95%);
+
+    @media (min-width: 992px) {
+        width: 180px;
+        height: 180px;
+    }
 }
 
 .content {
@@ -66,6 +71,17 @@
     }
 }
 
+.type-container {
+    flex-direction: column;
+    gap: 10px;
+
+    @media (min-width: 992px) {
+        flex-direction: row;
+        justify-content: end;
+        gap: 40px;
+    }
+}
+
 .meal-type {
     display: flex;
     align-items: center;
@@ -84,6 +100,20 @@
     &__big {
         width: 63px;
         height: 63px;
+    }
+
+    @media (min-width: 992px) {
+        font-size: 18px;
+
+        &__small {
+            width: 65px;
+            height: 65px;
+        }
+    
+        &__big {
+            width: 80px;
+            height: 80px;
+        }
     }
 }
 
