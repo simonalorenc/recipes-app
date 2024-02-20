@@ -4,7 +4,7 @@
             <div class="col-12 col-lg-6 bg-white d-flex">
                 <div class="content p-5 d-flex flex-column justify-content-between">
                     <div class="content__title" *ngIf="!isMobile">{{ recipe.name | uppercase }}</div>
-                    <div class="d-flex justify-content-between align-items-center my-3">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div class="content__cuisine">
                             <div>cuisine: {{ recipe.cuisine }}</div>
                             <div>difficulty: {{ recipe.difficulty }}</div>
@@ -16,15 +16,17 @@
                         <div class="content__instructions">{{recipe.instructions | space}}</div>
                     </div>
                     <div class="d-flex justify-content-around content__numbers my-4">
-                        <div class="d-flex flex-column align-items-center">   
+                        <div class="d-flex flex-column align-items-center content__numbers-container">   
                             <div class="content__numbers-number">{{ recipe.timeToPrepare }}</div>
                             <div class="content__numbers-text">PREPARE</div>
                         </div>
-                        <div class="d-flex flex-column align-items-center">   
+                        <div class="content__line"></div>
+                        <div class="d-flex flex-column align-items-center content__numbers-container">   
                             <div class="content__numbers-number">{{ recipe.cookTime }}</div>
                             <div class="content__numbers-text">COOK</div>
                         </div>
-                        <div class="d-flex flex-column align-items-center">
+                        <div class="content__line"></div>
+                        <div class="d-flex flex-column align-items-center content__numbers-container">
                             <div class="content__numbers-number">{{ recipe.servings }}</div>
                             <div class="content__numbers-text">SERVINGS</div>
                         </div>
