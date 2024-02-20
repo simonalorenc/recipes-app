@@ -33,7 +33,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private currentIndex: number = 0;
   private subscriptions: Subscription[] = []; //sprawdzic czy jest w innych wykorzystaniach rx subscribe
   currentRecipe: Recipe | undefined;
-  private lastScrollTop = 0;
   nextIcon: IconDefinition = faChevronRight;
   previousIcon: IconDefinition = faChevronLeft;
 
@@ -45,7 +44,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.TOP_RECIPE_IDS.forEach((id) => {
       const subscription = this.recipesRepository
-        .getOneRecipe(id)
+        .getRecipe(id)
         .subscribe((recipe) => {
           this.recipesToCarousel.push(recipe);
           if (!this.currentRecipe) {

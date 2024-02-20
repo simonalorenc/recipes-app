@@ -3,7 +3,7 @@
         <div class="bg-white recipe row">
             <div class="col-12 col-lg-6 bg-white d-flex">
                 <div class="content p-5 d-flex flex-column justify-content-between">
-                    <div class="content__title" *ngIf="!checkScreenWidth()">{{ recipe.name | uppercase }}</div>
+                    <div class="content__title" *ngIf="!isMobile">{{ recipe.name | uppercase }}</div>
                     <div class="d-flex justify-content-between align-items-center my-3">
                         <div class="content__cuisine">
                             <div>cuisine: {{ recipe.cuisine }}</div>
@@ -13,7 +13,7 @@
                     </div>
                     <div>
                         <div class="content__ingridients mb-3">Ingridients: {{recipe.ingridients | space}}</div>
-                        <div class="content__instructions">{{recipe.instructions | join }}</div>
+                        <div class="content__instructions">{{recipe.instructions | space}}</div>
                     </div>
                     <div class="d-flex justify-content-around content__numbers my-4">
                         <div class="d-flex flex-column align-items-center">   
@@ -33,7 +33,7 @@
             </div>
             <div class="col-12 col-lg-6 p-0 position-relative d-flex justify-content-center image">
                 <img [src]="recipe.imageUrl" class="image__recipe" alt="recipe image"> 
-                <div class="image__title position-absolute" *ngIf="checkScreenWidth()">{{ recipe.name | uppercase }}</div>
+                <div class="image__title position-absolute" *ngIf="isMobile">{{ recipe.name | uppercase }}</div>
             </div>
         </div>
     </div>

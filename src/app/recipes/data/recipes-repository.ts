@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { ApiService } from 'src/app/recipes/data/api.service';
 import { Recipe } from './recipe';
 import { RecipeDto } from './recipe-dto';
@@ -12,31 +12,41 @@ export class RecipesRepository {
 
   constructor(private apiService: ApiService, private recipesDataCache: RecipesDataCache) {}
 
+  saveRecipeToDataCache(recipe: Recipe) {
+    this.recipesDataCache.saveRecipe(recipe)
+  }
+
   getRecipes(limitNumber: number, skipNumber: number): Observable<Recipe[]> {
-    return this.apiService.getRecpiesFromApi(limitNumber, skipNumber).pipe(
+    return this.apiService.getRecpies(limitNumber, skipNumber).pipe(
       map((recipeDtos: RecipeDto[]) => {
         return recipeDtos.map((recipeDto: RecipeDto) => {
           const recipe = new Recipe(recipeDto)
-          this.recipesDataCache.saveRecipe(recipe)
+          this.saveRecipeToDataCache(recipe)
           return recipe
         });
       })
     );
   }
 
-  //wystarczy nazwa getRecipe, po typie widać ze jest jeden
-  getOneRecipe(id: number): Observable<Recipe> {
-    //tutaj nalezy wykorzystac cache i sprawdzic czy recipe o takim id nie jest dostepny zamast wrzykiwac cache w komponencie
-    return this.apiService.getOneRecipeFromApi(id).pipe(
-      map((recipeDto:RecipeDto) => new Recipe(recipeDto))
-    )
+  getRecipe(id: number): Observable<Recipe> {
+    const recipe = this.recipesDataCache.getRecipeById(id)
+    if(recipe) {
+      return of(recipe)
+    } else {
+      return this.apiService.getRecipe(id).pipe(
+        map((recipeDto:RecipeDto) => new Recipe(recipeDto))
+      )
+    }
   }
 
   getRecipesByMealType(mealType: string): Observable<Recipe[]> {
     return this.apiService.getRecipesByMealType(mealType).pipe(
       map((recipeDtos: RecipeDto[]) => {
-        //brakuje zapisu do cache proponuje wydzielic do osobnej metody
-        return recipeDtos.map((recipeDto: RecipeDto) => new Recipe(recipeDto))
+        return recipeDtos.map((recipeDto: RecipeDto) => {
+          const recipe = new Recipe(recipeDto)
+          this.saveRecipeToDataCache(recipe)
+          return recipe
+        })
       })
     )
   }
@@ -44,8 +54,11 @@ export class RecipesRepository {
   searchRecipes(value: string): Observable<Recipe[]> {
     return this.apiService.searchRecipes(value).pipe(
       map((recipesDto: RecipeDto[]) => {
-        //brakuje zapisu do cache proponuje wydzielic do osobnej metody
-        return recipesDto.map((recipeDto: RecipeDto) => new Recipe(recipeDto))
+        return recipesDto.map((recipeDto: RecipeDto) => {
+          const recipe = new Recipe(recipeDto)
+          this.saveRecipeToDataCache(recipe)
+          return recipe
+        })
       })
     )
   }
