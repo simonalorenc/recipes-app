@@ -1,0 +1,86 @@
+@import "/src/variables.scss";
+
+.recipe-container {
+  width: 100%;
+  height: 100vh;
+
+  @media (max-width: 992px) {
+    padding: 100px 0;
+    height: auto;
+  }
+}
+
+.recipe {
+  width: 80%;
+  -webkit-box-shadow: 0px 0px 61px -23px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 61px -23px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 61px -23px rgba(66, 68, 90, 1);
+}
+
+.content {
+  font-size: 16px;
+
+  & &__title {
+    line-height: 1.1;
+    letter-spacing: 4px;
+    font-size: 45px;
+    font-weight: 300;
+  }
+
+  & &__cuisine {
+    margin: 16px 0;
+
+    @media (max-width: 992px) {
+      margin-top: 0;
+    }
+  }
+
+  & &__rating {
+    font-size: 20px;
+  }
+
+  & &__ingridients {
+    text-align: justify;
+  }
+
+  & &__instructions {
+    text-align: justify;
+  }
+
+  & &__line {
+    border-right: 1px solid gray;
+  }
+
+  & &__numbers-text {
+    letter-spacing: 1px;
+    color: gray;
+  }
+
+  & &__numbers-number {
+    font-weight: 500;
+    font-size: 30px;
+  }
+}
+
+.image {
+
+  & &__recipe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(85%) contrast(95%);
+  }
+
+  & &__title {
+    color: white;
+    bottom: 20px;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    font-size: 45px;
+    font-weight: 300;
+  }
+
+  @media (max-width: 992px) {
+    order: -1;
+  }
+}
