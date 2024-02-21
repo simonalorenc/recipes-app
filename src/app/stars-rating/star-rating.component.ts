@@ -4,11 +4,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   IconDefinition, faStar, faStarHalf
 } from '@fortawesome/free-solid-svg-icons';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({
   selector: 'app-star-rating',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, TooltipModule],
   templateUrl: './star-rating.component.html',
   styleUrl: './star-rating.component.scss'
 })

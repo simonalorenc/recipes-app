@@ -27,7 +27,7 @@
       class="p-2 arrow"
       (click)="onSubmit()"
     ></fa-icon>
-    <small *ngIf="email.invalid && email.touched">wrong email</small>
+    <small [class.d-none]="email?.valid || email?.untouched" class="position-absolute email-alert">Please include a '&#64;' in the email address.</small>
   </div>
   <div
     class="d-flex justify-content-between align-items-center my-4 social-media"
