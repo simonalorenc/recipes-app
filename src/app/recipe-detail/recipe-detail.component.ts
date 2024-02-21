@@ -1,28 +1,35 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../recipes/data/recipe';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CommonModule } from '@angular/common';
-import { SpacePipe } from '../space.pipe';
-import { RecipesDataCache } from '../recipes/data/recipes-data-cache';
+import { SpacePipe } from '../pipes/space.pipe';
+import { StarRatingComponent } from '../stars-rating/star-rating.component';
+import { Subscribable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-detail',
   standalone: true,
-  imports: [CommonModule, SpacePipe],
+  imports: [CommonModule, SpacePipe, StarRatingComponent],
   providers: [Location],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss'
 })
-export class RecipeDetailComponent implements OnInit {
+export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipe!: Recipe
   isMobile!: boolean
+  rate!: number
+  private subscription!: Subscription
 
   constructor(private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository) {}
 
   ngOnInit(): void {
     this.getRecipe()
     this.checkScreenWidth()
+  }
+  
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
   @HostListener('window:resize', ['$event'])
@@ -33,12 +40,14 @@ export class RecipeDetailComponent implements OnInit {
   private getRecipe() {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
 
-    this.recipeRepository.getRecipe(id).subscribe(
-      recipe => this.recipe = recipe
-    )
+    this.subscription = this.recipeRepository.getRecipe(id).subscribe(
+      recipe => {
+        this.recipe = recipe
+        this.rate = recipe.rating
+      })
   }
 
-  checkScreenWidth(): boolean {
+  private checkScreenWidth(): boolean {
     return this.isMobile = window.innerWidth <= 992
   }
 }

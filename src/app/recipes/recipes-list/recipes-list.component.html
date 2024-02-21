@@ -1,13 +1,15 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column list-container">
   <div
     class="recipe-container d-flex position-relative"
     *ngFor="let recipe of recipes"
     [routerLink]="['/detail', recipe.id]"
   >
-    <div class="d-flex p-4 content align-items-center">
-      <img [src]="recipe.imageUrl" class="image col-4" />
+    <div class="d-flex content align-items-between">
+      <div class="d-flex align-items-center">
+        <img [src]="recipe.imageUrl" class="image col-4" />
+      </div>
       <div class="d-flex justify-content-between w-100">
-        <div class="ms-4 d-flex justify-content-between flex-column">
+        <div class="content__container d-flex justify-content-between flex-column">
           <div>
             <h2 class="content__title">{{ recipe.name | uppercase }}</h2>
             <div></div>
@@ -17,7 +19,7 @@
             <span> Total time to prepare: {{ recipe.timeToPrepare }} min</span>
             <span>Difficulty evel: {{ recipe.difficulty | lowercase }}</span>
           </div>
-          <div class="d-flex mt-2">
+          <div class="d-flex content__tags">
             <div class="me-3 content__tag" *ngFor="let tag of recipe.tags">
               {{ tag | lowercase }}
             </div>

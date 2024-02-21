@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-//do folderu pipes
 @Pipe({
   name: 'space',
   standalone: true

@@ -3,30 +3,27 @@
   <nav>
     <div class="landing-page d-flex flex-column justify-content-between flex-md-row">
       <div class="position-absolute logo">LOGO</div>
-      <div class="col-6 d-flex">
-        <div class="position-absolute title">
-          <h1 class="title__main">LOOOOONG TITLE</h1>
+      <div class="col-6 d-flex justify-content-center align-items-center ps-5">
+        <div class="title">
+          <h1 class="title__main">DELICIOUS & <br>QUICK RECIPES</h1>
           <h4 class="title__add">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero totam
-            aspernatur, natus eos quo beatae voluptatum nisi adipisci, nemo
-            perspiciatis aut laborum suscipit illo quia enim doloremque ad at
-            amet.
+            Easiest way to make healthy delicious meals for you, your friends and your whole family. Check recipes below and enjoy tasty melas!
           </h4>
         </div>
       </div>
-      <div class="d-flex justify-conent-end align-items-end carousel position-relative" #carousel>
+      <div class="carousel-name position-absolute pe-2" #carouselName>
+        <div class="carousel-name__title ms-3">{{ currentRecipe?.name | uppercase }}</div>
+      </div>
+      <div class="d-flex justify-conent-end align-items-end carousel" #carousel>
         <a routerLink="/detail/{{currentRecipe?.id}}">
         <img [src]="currentRecipe?.imageUrl" class="carousel__image"></a> 
-        <fa-icon [icon]="previousIcon" class="position-absolute carousel__arrow-left" size="3x" (click)="getPreviousRecipe()"></fa-icon>
-        <fa-icon [icon]="nextIcon" class="position-absolute carousel__arrow-right" size="3x" (click)="getNextRecipe()"></fa-icon>
-        <div class="carousel__name position-absolute ms-3 pb-5">{{ currentRecipe?.name | uppercase }}</div>
         <div class="position-absolute d-flex dot-container m-2" *ngIf="currentRecipe">
-          <div class="dot mx-1" *ngFor="let recipe of recipesToCarousel" [style.backgroundColor]="(currentRecipe.id === recipe.id) ? 'white' : 'initial'"></div>
+          <div class="dot mx-1" *ngFor="let recipe of recipesToCarousel" [style.backgroundColor]="(currentRecipe.id === recipe.id) ? 'white' : 'initial'" (click)=getRecipe()></div>
         </div>
       </div>
-      <div class="position-absolute option d-flex">
-        <div (click)="scrollToRecipesList('recipesList')">RECIPES</div>
-        <div>option</div>
+      <div class="position-absolute options-container d-flex">
+        <div class="options-container__option" (click)="scrollToRecipesList('recipesList')">RECIPES</div>
+        <div class="options-container__option" (click)="scrollToNewsletter()">SUBSCRIBE</div>
       </div>
     </div>
   </nav>

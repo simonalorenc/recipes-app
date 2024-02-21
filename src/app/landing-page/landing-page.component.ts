@@ -26,12 +26,13 @@ import {
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  private TOP_RECIPE_IDS: number[] = [44, 9, 41];
+  private TOP_RECIPE_IDS: number[] = [44, 9, 39];
+  // private TOP_RECIPE_IDS: number[] = [44, 9, 41];
   private CAROUSEL_INTERVAL: number = 2000;
 
   recipesToCarousel: Recipe[] = [];
   private currentIndex: number = 0;
-  private subscriptions: Subscription[] = []; //sprawdzic czy jest w innych wykorzystaniach rx subscribe
+  private subscriptions: Subscription[] = [];
   currentRecipe: Recipe | undefined;
   nextIcon: IconDefinition = faChevronRight;
   previousIcon: IconDefinition = faChevronLeft;
@@ -63,12 +64,15 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   }
 
   @ViewChild('carousel') carouselRef!: ElementRef;
+  @ViewChild('carouselName') carosuelName!: ElementRef
 
   @HostListener('window:scroll', ['event']) onScroll() {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const translateX = scrollTop * 0.8;
     const carousel = this.carouselRef.nativeElement as HTMLDivElement;
+    const carouselName = this.carosuelName.nativeElement as HTMLDivElement;
     carousel.style.transform = `translate(${translateX}px, 0)`;
+    carouselName.style.transform = `translate(${translateX}px, 0)`;
   }
 
   private startCarousel(): void {
@@ -79,7 +83,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     }, this.CAROUSEL_INTERVAL);
   }
 
-  getNextRecipe(): void {
+  //klikanie na kropki zrobić
+  getRecipe(): void {
     this.currentIndex = (this.currentIndex + 1) % this.recipesToCarousel.length;
     this.currentRecipe = this.recipesToCarousel[this.currentIndex];
   }
@@ -91,5 +96,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   scrollToRecipesList(elementId: string): void {
     this.viewportScroller.scrollToAnchor(elementId);
+  }
+
+  scrollToNewsletter(): void {
+    this.viewportScroller.scrollToPosition([0, document.body.scrollHeight]);
   }
 }

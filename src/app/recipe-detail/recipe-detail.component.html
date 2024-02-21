@@ -1,4 +1,4 @@
-<div class="container-flex">
+<div class="container-flex detail-container">
     <div class="recipe-container d-flex align-items-center justify-content-center" *ngIf="recipe">
         <div class="bg-white recipe row">
             <div class="col-12 col-lg-6 bg-white d-flex">
@@ -9,6 +9,7 @@
                             <div>cuisine: {{ recipe.cuisine }}</div>
                             <div>difficulty: {{ recipe.difficulty }}</div>
                         </div>
+                        <app-star-rating [rate]="rate"></app-star-rating>
                         <div class="content__rating">{{ recipe.rating }}</div>
                     </div>
                     <div>

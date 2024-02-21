@@ -1,46 +1,61 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RecipesListComponent } from '../recipes/recipes-list/recipes-list.component';
 import { CommonModule } from '@angular/common';
-import { Recipe } from '../recipes/data/recipe';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { IconDefinition, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faTimes, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RecipesListComponent, CommonModule, RouterModule, FontAwesomeModule, FooterComponent],
+  imports: [
+    RecipesListComponent,
+    CommonModule,
+    RouterModule,
+    FontAwesomeModule,
+    FooterComponent,
+  ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  @ViewChild('searchInput') searchInput!: ElementRef
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
-  mealTypes: string[] = ['dinner', 'lunch', 'snack', 'dessert', 'side dish', 'appetizer', 'breakfast', 'beverage']
-  filterInputValue: string = ''
-  isMealTypeChoosed: boolean = false
-  clearIcon: IconDefinition = faTimes
+  mealTypes: string[] = [
+    'dinner',
+    'lunch',
+    'snack',
+    'dessert',
+    'side dish',
+    'appetizer',
+    'breakfast',
+    'beverage',
+  ];
+  isMealTypeChoosed: boolean = false;
+  clickedMealType!: string
+  clearIcon: IconDefinition = faTimes;
+  clearMealTypeIcon: IconDefinition = faXmark
 
-  constructor() {
-  }
+  constructor() {}
 
-  getFilterInputValue(text: string) {
-    this.filterInputValue = text
+  onInputEvent() {
+    this.deleteMealTypeFilter();
   }
 
   changeRecipesByMealType(mealType: string): void {
-        this.filterInputValue = mealType
-        this.searchInput.nativeElement.value = mealType
-        this.isMealTypeChoosed = true
+    this.searchInput.nativeElement.value = mealType;
+    this.isMealTypeChoosed = true;
+    this.clickedMealType = mealType
+    console.log(this.clickedMealType)
   }
 
   deleteMealTypeFilter(): void {
-    this.isMealTypeChoosed = false
+    this.isMealTypeChoosed = false;
   }
 
   clearFilterInput() {
-    this.searchInput.nativeElement.value = ''
-    this.filterInputValue = ''
+    this.searchInput.nativeElement.value = '';
+    this.clickedMealType = ''
   }
 }

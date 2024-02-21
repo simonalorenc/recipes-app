@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
 import { ApiService } from 'src/app/recipes/data/api.service';
 import { Recipe } from './recipe';
-import { RecipeDto } from './recipe-dto';
+import { RecipeDto, RecipesListDto } from './recipe-dto';
 import { RecipesDataCache } from './recipes-data-cache';
+import { RecipesWithTotal } from './recipes-with-total';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,12 @@ export class RecipesRepository {
     this.recipesDataCache.saveRecipe(recipe)
   }
 
-  getRecipes(limitNumber: number, skipNumber: number): Observable<Recipe[]> {
+  getRecipes(limitNumber: number, skipNumber: number): Observable<RecipesWithTotal> {
     return this.apiService.getRecpies(limitNumber, skipNumber).pipe(
-      map((recipeDtos: RecipeDto[]) => {
-        return recipeDtos.map((recipeDto: RecipeDto) => {
-          const recipe = new Recipe(recipeDto)
-          this.saveRecipeToDataCache(recipe)
-          return recipe
-        });
+      map((recipesListDto: RecipesListDto) => {
+        return new RecipesWithTotal(
+          recipesListDto.recipes.map(recipeDto => new Recipe(recipeDto)),
+          recipesListDto.total)
       })
     );
   }

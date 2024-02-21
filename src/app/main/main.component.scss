@@ -1,17 +1,48 @@
 @import "/src/variables.scss";
 
-input {
-    outline: none;
-    border: none;
+.filters {
+    background-color: white;
 }
 
+input {
+    color: $text-primary;
+    background: none;
+    outline: none;
+    border: 1px solid $underline;
+}
+
+input:focus {
+    border: 1px solid $text-primary;
+}
+
+::-webkit-input-placeholder { 
+    color: $underline-variant;
+  }
+
 .clear {
-    color: white;
+    color: $underline;
+}
+
+.clear:hover {
+    cursor: pointer;
+    color: $text-primary;
+}
+
+.clear-icon {
+    right: -18px;
+    color: $text-primary;
 }
 
 .meal-type {
+    cursor: pointer;
+    color: $underline;
     font-weight: 300;
     font-size: 18px;
+}
+
+.active {
+    color: $text-primary;
+    text-decoration: underline;
 }
 
 .meal-type-container {
@@ -22,7 +53,9 @@ input {
 }
 
 .text {
-    font-size: 80px;
-    font-size: 600;
     color: $text-primary;
+    letter-spacing: 4px;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.5;
 }

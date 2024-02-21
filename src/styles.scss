@@ -11,5 +11,6 @@
 body, html {
   font-family: "Roboto", sans-serif;
   background-color: $background-variant;
-  color: white; //moze tez z variables.scss?
+  color: $text;
+  overflow-x: hidden;
 }

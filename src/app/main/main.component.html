@@ -1,41 +1,47 @@
 <main class="main">
   <div class="container-flex">
-    <div class="d-flex flex-column justify-conent-start filters my-5 mx-3">
+    <div class="d-flex flex-column justify-conent-start filters my-5 ms-5 p-5">
       <div class="d-flex">
         <input
           type="text"
-          placeholder="search the meal"
-          class="rounded-pill flex-grow-1 p-2"
-          (input)="
-            getFilterInputValue(searchInput.value); deleteMealTypeFilter()
-          "
+          placeholder="search the meal by name"
+          class="flex-grow-1 p-2"
+          (input)="onInputEvent()"
           #searchInput
         />
-        <div class="ms-4 d-flex justify-content-center align-items-center" (click)="deleteMealTypeFilter(); clearFilterInput()">
+        <div
+          class="ms-4 d-flex justify-content-center align-items-center"
+          (click)="deleteMealTypeFilter(); clearFilterInput()"
+        >
           <fa-icon [icon]="clearIcon" class="clear" size="2x"></fa-icon>
         </div>
       </div>
       <div class="d-flex justify-content-between flex-wrap meal-type-container">
         <div
-          class="d-flex mt-3"
+          class="d-flex mt-3 position-relative"
           *ngFor="let mealType of mealTypes; let last = last"
         >
           <div class="d-flex meal-type">
-              <span [ngStyle]="{ 'margin-right.px': last ? 0 : undefined }" (click)="changeRecipesByMealType(mealType)">{{
-                mealType
-              }}</span>
+            <span
+              [ngStyle]="{ 'margin-right.px': last ? 0 : undefined }"
+              (click)="changeRecipesByMealType(mealType)"
+              [ngClass]="{ active: clickedMealType === mealType }"
+              >{{ mealType }}
+            </span>
+            <fa-icon [icon]="clearMealTypeIcon" class="clear-icon position-absolute"
+            *ngIf="clickedMealType === mealType" (click)="deleteMealTypeFilter(); clearFilterInput()"></fa-icon>
           </div>
         </div>
       </div>
     </div>
     <div class="container-flex">
       <div class="row">
-        <div class="col col-2 col-lg-4 d-none d-md-block">
-          <div class="text lh-1 ms-3">MEAL MEAL MEAL</div>
+        <div class="col col-3 col-lg-4 d-none d-md-block">
+          <div class="text ms-3">CHOOSE RECIPE TO SEE THE DETAILS</div>
         </div>
         <div class="col">
           <app-recipes-list
-            [filterInputValue]="filterInputValue"
+            [filterInputValue]="searchInput.value"
             [isMealTypeChoosed]="isMealTypeChoosed"
           ></app-recipes-list>
         </div>

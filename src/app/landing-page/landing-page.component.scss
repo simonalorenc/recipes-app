@@ -15,17 +15,26 @@
   z-index: 1;
 }
 
-.option {
+.options-container {
   top: 40px;
   right: 40px;
   gap: 40px;
+
+  & &__option {
+    letter-spacing: 3px;
+    font-size: 15px;
+    font-weight: 500;
+    color: $underline;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    } 
+  }
 }
 
 .title {
-  top: 35vh;
-  left: 10vh;
-  z-index: 1;
-
   & &__main {
     font-size: 75px;
     color: $text-primary;
@@ -37,13 +46,15 @@
   }
 
   @media (max-width: 768px) {
+    left: 10vh;
+    z-index: 1;
+    position: absolute;
     top: 25vh;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
   }
 
   @media (max-width: 576px) {
-
     & &__main {
       font-size: 50px;
     }
@@ -55,22 +66,42 @@
 }
 
 .dot-container {
-    display: flex;
-    position: absolute;
-    left: 50%;
-    bottom: 3%;
+  display: flex;
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
-    border: solid white 1px;
-    border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  border: solid $underline 1px;
+  border-radius: 50%;
+}
+
+.carousel-name {
+  width: 200px;
+  right: 50%;
+  bottom: 10px;
+  transition: transform 0.1s linear;
+  z-index: 1;
+
+  & &__title {
+    text-align: justify;
+    letter-spacing: 4px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  @media (max-width: 768px) {
+    color: $underline;
+  }
 }
 
 .carousel {
   overflow: hidden;
   transition: transform 0.1s linear;
+  position: relative;
 
   & &__image {
     height: 100vh;
@@ -78,24 +109,7 @@
     object-position: center;
   }
 
-  & &__arrow-left {
-    top: 60%;
-    left: 10px;
-  }
-
-  & &__arrow-right {
-    top: 60%;
-    right: 10px;
-  }
-
-  & &__name {
-    font-size: 50px;
-    z-index: 0;
-    color: $text-primary;
-  }
-
   @media (max-width: 576px) {
-
     & &__name {
       font-size: 40px;
     }
