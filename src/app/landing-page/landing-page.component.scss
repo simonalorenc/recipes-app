@@ -35,12 +35,15 @@
 }
 
 .title {
+
   & &__main {
+    font-weight: 300;
     font-size: 75px;
     color: $text-primary;
   }
 
   & &__add {
+    font-weight: 300;
     max-width: 600px;
     color: $text-primary;
   }

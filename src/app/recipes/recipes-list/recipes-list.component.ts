@@ -76,6 +76,7 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
     } else if (this.filterInputValue !== '') {
       console.log('searchInput NIE jest pusty i brak type-meal');
       this.filterRecipesList(this.filterInputValue);
+      this.currentPage = 1
     }
   }
 

@@ -1,192 +1,203 @@
-@import '/src/variables.scss';
+@import "/src/variables.scss";
 
 .list-container {
-    padding-right: 40px;
+  padding-right: 50px;
 
-    @media (max-width: 992px) {
-        padding-right: 0;
-    }
+  @media (max-width: 992px) {
+    padding-right: 0;
+  }
 }
 
 .recipe-container {
-    position: relative;
-    display: inline-block;
-    z-index: 1;
-    border-top: 1.5px solid $text-primary;
-    min-height: 230px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  border-top: 1.5px solid $text-primary;
+  min-height: 230px;
+  transition: background-color ease-in-out .4s;
 
-    @media (max-width: 992px) {
-        min-height: 230px;
-    }
+  &:hover {
+    background-color: #f9f8f5;
+  }
+
+  @media (max-width: 992px) {
+    min-height: 230px;
+  }
 }
 
 .recipe-container .content__title {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .recipe-container:hover .content__title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 10px;
-    background-color: $underline;
-    transition: width 0.5s ease; 
-    animation: underlineAnimation 1s ease forwards;
-    z-index: -1;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 10px;
+  background-color: $underline;
+  transition: width 0.5s ease;
+  animation: underlineAnimation 1s ease forwards;
+  z-index: -1;
+}
+
+.recipe-container:hover .image {
+  transform: scale(1.04);
 }
 
 .recipe-container .content__title::after {
-    width: 100%;
-    animation: underlineAnimation 1s ease forwards;
+  width: 100%;
+  animation: underlineAnimation 1s ease forwards;
 }
 
 @keyframes underlineAnimation {
-    to {
-      width: 100%;
-      height: 15px;
-    }
+  to {
+    width: 100%;
+    height: 15px;
+  }
 }
 
 .image {
-    width: 130px;
-    height: 130px;
-    border: solid 1px $text-primary;
-    border-radius: 50%;
-    filter: saturate(85%) contrast(95%);
+  width: 130px;
+  height: 130px;
+//   border: solid 1px $text-primary;
+  border-radius: 50%;
+  filter: saturate(85%) contrast(95%);
+  transition: transform 0.5s ease;
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 10px -5px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 10px -5px rgba(66, 68, 90, 1);
 
-    @media (min-width: 992px) {
-        width: 180px;
-        height: 180px;
-    }
+  @media (min-width: 992px) {
+    width: 180px;
+    height: 180px;
+  }
 
-    @media (max-width: 576px) {
-        width: 110px;
-        height: 110px;
-    }
+  @media (max-width: 576px) {
+    width: 110px;
+    height: 110px;
+  }
 }
 
 .content {
-    width: 100%;
+  width: 100%;
+  font-weight: 300;
+  padding: 25px;
+
+  & &__container {
+    margin-left: 40px;
+  }
+
+  & &__title {
+    margin: 0;
+    padding: 0;
+    letter-spacing: 4px;
+    font-size: 32px;
     font-weight: 300;
-    padding: 25px;
+  }
+
+  & &__text {
+    font-weight: 300;
+    font-size: 18px;
+  }
+
+  & &__tags {
+    flex-wrap: wrap;
+  }
+
+  & &__tag {
+    font-size: 18px;
+    color: $text-primary;
+    font-weight: 400;
+  }
+
+  @media (max-width: 992px) {
+    & &__container {
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 15px;
 
     & &__container {
-        margin-left: 40px;
+      max-width: 200px;
+      margin-left: 10px;
+      flex-wrap: wrap;
     }
 
     & &__title {
-        margin: 0;
-        padding: 0;
-        letter-spacing: 4px;
-        font-size: 32px;
-        font-weight: 300;
+      font-size: 20px;
     }
 
     & &__text {
-        font-weight: 300;
-        font-size: 18px;
-    }
-
-    & &__tags {
-        flex-wrap: wrap;
+      font-size: 14px;
     }
 
     & &__tag {
-        font-size: 18px;
-        color: $text-primary;
-        font-weight: 400;
+      font-size: 14px;
     }
-
-    @media (max-width: 992px) {
-
-        & &__container {
-            max-width: 300px;
-        }
-
-    }
-
-    @media (max-width: 576px) {
-        padding: 15px;
-
-        & &__container {
-            max-width: 200px;
-            margin-left: 10px;
-            flex-wrap: wrap;
-        }
-        
-        & &__title {
-            font-size: 20px;
-        }
-
-        & &__text {
-            font-size: 14px;
-        }
-
-        & &__tag {
-            font-size: 14px;
-        }
-    }
+  }
 }
 
 .type-container {
-    flex-direction: column;
-    gap: 10px;
+  flex-direction: column;
+  gap: 10px;
 
-    @media (min-width: 992px) {
-        flex-direction: row;
-        justify-content: end;
-        gap: 40px;
-    }
+  @media (min-width: 992px) {
+    flex-direction: row;
+    justify-content: end;
+    gap: 40px;
+  }
 }
 
 .meal-type {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    padding: 20px;
-    transform: rotate(20deg);
-    border: solid 2px $underline;
-    font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 20px;
+  transform: rotate(20deg);
+  border: solid 2px $underline;
+  font-size: 14px;
+
+  &__small {
+    width: 50px;
+    height: 50px;
+  }
+
+  &__big {
+    width: 63px;
+    height: 63px;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 18px;
 
     &__small {
-        width: 50px;
-        height: 50px;
+      width: 65px;
+      height: 65px;
     }
 
     &__big {
-        width: 63px;
-        height: 63px;
+      width: 80px;
+      height: 80px;
     }
-
-    @media (min-width: 992px) {
-        font-size: 18px;
-
-        &__small {
-            width: 65px;
-            height: 65px;
-        }
-    
-        &__big {
-            width: 80px;
-            height: 80px;
-        }
-    }
+  }
 }
 
 .pagination {
+  & &__button {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+  }
 
-    & &__button {
-        width: 32px;
-        height: 32px;
-    }
-
-    & &__current-page {
-        font-size: 15px;
-        font-weight: 300;
-    }
+  & &__current-page {
+    font-size: 15px;
+    font-weight: 300;
+  }
 }
-

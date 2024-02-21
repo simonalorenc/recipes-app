@@ -1,61 +1,65 @@
 @import "/src/variables.scss";
 
 .filters {
-    background-color: white;
+  margin: 0px 50px;
+  background-color: white;
+  -webkit-box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
+  -moz-box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
+  box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
 }
 
 input {
-    color: $text-primary;
-    background: none;
-    outline: none;
-    border: 1px solid $underline;
+  color: $text-primary;
+  background: none;
+  outline: none;
+  border: 1px solid $underline;
 }
 
 input:focus {
-    border: 1px solid $text-primary;
+  border: 1px solid $text-primary;
 }
 
-::-webkit-input-placeholder { 
-    color: $underline-variant;
-  }
+::-webkit-input-placeholder {
+  color: $underline-variant;
+}
 
 .clear {
-    color: $underline;
+  color: $underline;
 }
 
 .clear:hover {
-    cursor: pointer;
-    color: $text-primary;
+  cursor: pointer;
+  color: $text-primary;
 }
 
 .clear-icon {
-    right: -18px;
-    color: $text-primary;
+  right: -18px;
+  color: $text-primary;
 }
 
 .meal-type {
-    cursor: pointer;
-    color: $underline;
-    font-weight: 300;
-    font-size: 18px;
+  cursor: pointer;
+  color: $underline;
+  font-weight: 300;
+  font-size: 18px;
 }
 
 .active {
-    color: $text-primary;
-    text-decoration: underline;
+  color: $text-primary;
+  text-decoration: underline;
 }
 
 .meal-type-container {
-
-    @media (max-width: 768px) {
-        grid-column-gap: 50px;
-    }
+  @media (max-width: 768px) {
+    grid-column-gap: 50px;
+  }
 }
 
 .text {
-    color: $text-primary;
-    letter-spacing: 4px;
-    font-size: 40px;
-    font-weight: 500;
-    line-height: 1.5;
+  color: $text-primary;
+  letter-spacing: 4px;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding-left: 50px;
 }
