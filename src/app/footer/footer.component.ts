@@ -14,11 +14,16 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 })
 export class FooterComponent {
   email = new FormControl('',[Validators.required, Validators.email])
+  isSubmit: boolean = false
   arrowIcon: IconDefinition = faArrowRight
 
   onSubmit() {
+    this.isSubmit= true
+    console.log(this.isSubmit)
     if(this.email.valid) {
       console.log('you subscribed!')
+      this.email.setValue('')
+      this.email.markAsUntouched();
     }
   }
 }

@@ -11,7 +11,7 @@
         />
         <div
           class="ms-4 d-flex justify-content-center align-items-center"
-          (click)="deleteMealTypeFilter(); clearFilterInput()"
+          (click)="deleteMealTypeFilter(); clearFilterInput('')"
         >
           <fa-icon [icon]="clearIcon" class="clear" size="2x"></fa-icon>
         </div>
@@ -29,20 +29,21 @@
               >{{ mealType }}
             </span>
             <fa-icon [icon]="clearMealTypeIcon" class="clear-icon position-absolute"
-            *ngIf="clickedMealType === mealType" (click)="deleteMealTypeFilter(); clearFilterInput()"></fa-icon>
+            *ngIf="clickedMealType === mealType" (click)="deleteMealTypeFilter(); clearFilterInput('')"></fa-icon>
           </div>
         </div>
       </div>
     </div>
     <div class="container-flex">
       <div class="row">
-        <div class="col col-8 col-md-3 col-lg-4">
+        <div class="col col-md-3 col-lg-4">
           <div class="text">CHOOSE RECIPE TO SEE THE DETAILS</div>
         </div>
         <div class="col">
           <app-recipes-list
             [filterInputValue]="searchInput.value"
             [isMealTypeChoosed]="isMealTypeChoosed"
+            (clearFilterInputValue)="clearFilterInput($event)"
           ></app-recipes-list>
         </div>
       </div>
