@@ -5,7 +5,8 @@ import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CommonModule } from '@angular/common';
 import { SpacePipe } from '../pipes/space.pipe';
 import { StarRatingComponent } from '../stars-rating/star-rating.component';
-import { Subscribable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -21,7 +22,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   rate!: number
   private subscription!: Subscription
 
-  constructor(private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository) {}
+  constructor(private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository, private location: Location) {}
 
   ngOnInit(): void {
     this.getRecipe()
@@ -48,6 +49,13 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   private checkScreenWidth(): boolean {
+    console.log("check screen")
+    console.log(this.isMobile = window.innerWidth <= 992)
+    console.log(window.innerWidth)
     return this.isMobile = window.innerWidth <= 992
+  }
+
+  goBack(): void {
+    this.location.back()
   }
 }

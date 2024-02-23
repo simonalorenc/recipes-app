@@ -1,3 +1,14 @@
+@import "/src/variables.scss";
+
 .stars {
-    font-size: 25px;
+  font-size: 25px;
+  color: $footer-hover;
+
+  @media (max-width: 1200px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 15px;
+  }
 }
