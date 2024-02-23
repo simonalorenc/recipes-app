@@ -3,20 +3,22 @@
     class="d-flex justify-content-center align-items-center flex-column newsletter__container"
   >
     <div class="newsletter__title">NEWSLETTER</div>
-    <div class="mb-3 newsletter__text py-3">
-      Subscribe our newsletter to get new recipes!
-    </div>
-    <div class="position-relative">
-      <input type="text" placeholder="Your email" [formControl]="email" />
-      <fa-icon
-        [icon]="arrowIcon"
-        class="p-2 arrow"
-        (click)="onSubmit()"
-      ></fa-icon>
-      <small *ngIf="isSubmit && email.invalid"
-      class="position-absolute email-alert"
-      >Please include a '&#64;' in the email address.</small
-    >
+    <div>
+      <div class="mb-3 newsletter__text py-3">
+        Subscribe our newsletter to get new recipes!
+      </div>
+      <div class="position-relative">
+        <input type="text" placeholder="Your email" [formControl]="email" />
+        <fa-icon
+          [icon]="arrowIcon"
+          class="p-2 arrow"
+          (click)="onSubmit()"
+        ></fa-icon>
+        <small *ngIf="isSubmit && email.invalid"
+        class="position-absolute email-alert"
+        >Please include a '&#64;' in the email address.</small
+      >
+      </div>
     </div>
   </div>
 </div>

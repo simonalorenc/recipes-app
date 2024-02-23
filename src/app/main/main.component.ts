@@ -47,7 +47,6 @@ export class MainComponent {
     this.searchInput.nativeElement.value = mealType;
     this.isMealTypeChoosed = true;
     this.clickedMealType = mealType
-    console.log(this.clickedMealType)
   }
 
   deleteMealTypeFilter(): void {

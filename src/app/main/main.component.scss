@@ -23,22 +23,33 @@ input:focus {
   color: $underline-variant;
 }
 
-.clear {
-  color: $underline;
+.clear-all {
+  display: flex;
+  top: 3.50px;
+  right: 10px;
+
+  & &__icon {
+    height: 35px;
+  }
 
   @media (max-width: 576px) {
     display: none;
   }
 }
 
-.clear:hover {
+.clear__icon:hover {
   cursor: pointer;
   color: $text-primary;
 }
 
 .clear-icon {
-  right: -18px;
+  height: 27px;
+  right: -22px;
   color: $text-primary;
+
+  @media (max-width: 576px) {
+    height: 20px;
+  }
 }
 
 .meal-type {
@@ -60,6 +71,10 @@ input:focus {
 .meal-type-container {
   @media (max-width: 768px) {
     grid-column-gap: 50px;
+  }
+
+  @media (max-width: 576px) {
+    grid-column-gap: 15px;
   }
 }
 

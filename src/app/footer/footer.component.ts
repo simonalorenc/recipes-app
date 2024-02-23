@@ -19,11 +19,13 @@ export class FooterComponent {
 
   onSubmit() {
     this.isSubmit= true
-    console.log(this.isSubmit)
     if(this.email.valid) {
       console.log('you subscribed!')
       this.email.setValue('')
       this.email.markAsUntouched();
+      this.isSubmit= false
+    } else {
+      console.log('invalid mail')
     }
   }
 }

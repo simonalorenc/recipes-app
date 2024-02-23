@@ -1,6 +1,2 @@
-<div class="stars-outer">
-    <div class="stars-inner" #starsInner>
-    </div>
-</div>
+<rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly" class="stars"></rating>
 
-<rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly"></rating>
