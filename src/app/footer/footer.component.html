@@ -14,10 +14,14 @@
           class="p-2 arrow"
           (click)="onSubmit()"
         ></fa-icon>
-        <small *ngIf="isSubmit && email.invalid"
-        class="position-absolute email-alert"
-        >Please include a '&#64;' in the email address.</small
-      >
+        <small
+          *ngIf="isSubmit && email.invalid"
+          class="position-absolute text-danger newsletter__wrong-email"
+          >Enter the correct email
+        </small>
+        <alert type="success" class="position-absolute newsletter__alert" *ngIf="showSuccessAlert">
+          You subscribed the newsletter.
+        </alert>
       </div>
     </div>
   </div>

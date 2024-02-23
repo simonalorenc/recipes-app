@@ -13,10 +13,10 @@ input {
   background: none;
   outline: none;
   border: 1px solid $underline;
-}
 
-input:focus {
-  border: 1px solid $text-primary;
+  &:focus {
+    border: 1px solid $text-primary;
+  }
 }
 
 ::-webkit-input-placeholder {
