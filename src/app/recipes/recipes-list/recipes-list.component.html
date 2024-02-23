@@ -21,7 +21,7 @@
           <div class="content__text d-flex flex-column lh-base">
             <span>Cuisine: {{ recipe.cuisine }} </span>
             <span> Total time to prepare: {{ recipe.timeToPrepare }} min</span>
-            <span>Difficulty evel: {{ recipe.difficulty | lowercase }}</span>
+            <span>Difficulty level: {{ recipe.difficulty | lowercase }}</span>
           </div>
           <div class="d-flex content__tags">
             <div class="me-3 content__tag" *ngFor="let tag of recipe.tags">
