@@ -17,11 +17,12 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, FontAwesomeModule],
+  imports: [CommonModule, RouterModule, FontAwesomeModule, NavbarComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })
@@ -92,13 +93,5 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   getPreviousRecipe(): void {
     this.currentIndex = (this.currentIndex - 1) % this.recipesToCarousel.length;
     this.currentRecipe = this.recipesToCarousel[this.currentIndex];
-  }
-
-  scrollToRecipesList(elementId: string): void {
-    this.viewportScroller.scrollToAnchor(elementId);
-  }
-
-  scrollToNewsletter(): void {
-    this.viewportScroller.scrollToPosition([0, document.body.scrollHeight]);
   }
 }
