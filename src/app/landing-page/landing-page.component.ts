@@ -18,6 +18,7 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { RoutingService } from '../routing.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -28,7 +29,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
   private TOP_RECIPE_IDS: number[] = [44, 9, 39];
-  // private TOP_RECIPE_IDS: number[] = [44, 9, 41];
   private CAROUSEL_INTERVAL: number = 2000;
 
   recipesToCarousel: Recipe[] = [];
@@ -40,7 +40,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private recipesRepository: RecipesRepository,
-    private viewportScroller: ViewportScroller,
+    private viewportScroller: ViewportScroller, private routingService: RoutingService
   ) {}
 
   ngOnInit(): void {
@@ -93,5 +93,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   getPreviousRecipe(): void {
     this.currentIndex = (this.currentIndex - 1) % this.recipesToCarousel.length;
     this.currentRecipe = this.recipesToCarousel[this.currentIndex];
+  }
+
+  scrollToRecipes() {
+    this.viewportScroller.scrollToAnchor('recipesList')
   }
 }
