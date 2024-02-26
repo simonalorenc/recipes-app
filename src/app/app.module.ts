@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     LandingPageComponent,
     RatingModule.forRoot(),
     AlertModule.forRoot(),
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

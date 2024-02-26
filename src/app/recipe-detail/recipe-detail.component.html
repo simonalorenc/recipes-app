@@ -4,6 +4,12 @@
             <div class="col-12 col-lg-6 bg-white d-flex">
                 <div class="content d-flex flex-column justify-content-between position-relative">
                     <img src="/assets/images/arrow-left.svg" class="position-absolute content__arrow" (click)="goBack()">
+                    <div class="position-absolute d-flex align-items-center icons">
+                        <img src="/assets/images/share-icon.svg" class="icons__share" (click)="shareRecipe()" *ngIf="!urlIsCopied">
+                        <img src="/assets/images/shared-icon.svg" class="icons__share" *ngIf="urlIsCopied">
+                        <fa-icon [icon]="saveIcon" class="icons__save" (click)="saveRecipe()" *ngIf="!recipeIsSaved"></fa-icon>
+                        <fa-icon [icon]="savedIcon" class="icons__save" *ngIf="recipeIsSaved"></fa-icon>
+                    </div>
                     <div class="content__title" *ngIf="!isMobile">{{ recipe.name | uppercase }}</div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="content__cuisine">

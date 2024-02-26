@@ -1,5 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../recipes/data/recipe';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CommonModule } from '@angular/common';
@@ -7,11 +7,16 @@ import { SpacePipe } from '../pipes/space.pipe';
 import { StarRatingComponent } from '../stars-rating/star-rating.component';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import {Clipboard} from '@angular/cdk/clipboard';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark as regularBookmark } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-recipe-detail',
   standalone: true,
-  imports: [CommonModule, SpacePipe, StarRatingComponent],
+  imports: [CommonModule, SpacePipe, StarRatingComponent, FontAwesomeModule],
   providers: [Location],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss'
@@ -20,9 +25,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipe!: Recipe
   isMobile!: boolean
   rate!: number
+  currentUrl: string = ''
+  urlIsCopied: boolean = false
+  recipeIsSaved: boolean = false
   private subscription!: Subscription
+  saveIcon: IconDefinition = regularBookmark
+  savedIcon: IconDefinition = solidBookmark
 
-  constructor(private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository, private location: Location) {}
+  constructor(private activatedRoute: ActivatedRoute, private recipeRepository: RecipesRepository, private location: Location, private router: Router, private clipboard: Clipboard) {}
 
   ngOnInit(): void {
     this.getRecipe()
@@ -49,13 +59,23 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   private checkScreenWidth(): boolean {
-    console.log("check screen")
-    console.log(this.isMobile = window.innerWidth <= 992)
-    console.log(window.innerWidth)
     return this.isMobile = window.innerWidth <= 992
   }
 
   goBack(): void {
     this.location.back()
+  }
+
+  shareRecipe(): void {
+    this.currentUrl = this.router.url
+    console.log(this.currentUrl)
+    this.clipboard.copy(this.currentUrl)
+    this.urlIsCopied = true
+  }
+
+  saveRecipe(): void {
+    console.log(this.recipeIsSaved)
+    this.recipeIsSaved = true
+    console.log(this.recipeIsSaved)
   }
 }
