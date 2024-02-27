@@ -1,4 +1,86 @@
+@import "/src/variables.scss";
+
 .recipes-container {
-    margin-top: 100px;
-    height: 100vh;
+  margin: 100px 0;
+  flex-wrap: wrap;
+  gap: 100px;
+}
+
+.title-container {
+  margin-top: 100px;
+}
+
+.title {
+  position: sticky;
+  font-weight: 300;
+  font-size: 75px;
+  color: $text-primary;
+  z-index: 1;
+}
+
+.title-background {
+  background-color: white;
+  width: 50%;
+  height: 140%;
+  top: -20%;
+  z-index: 0;
+}
+
+.title-line {
+    position: sticky;
+    width: 80%;
+    height: 1px;
+    border-top: 1px solid $underline;
+    z-index: 1;
+}
+
+.recipe {
+  -webkit-box-shadow: 0px 0px 10px -5px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 10px -5px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 10px -5px rgba(66, 68, 90, 1);
+
+  & &__delete {
+    width: 40px;
+    top: -40px;
+    right: -7px;
+  }
+
+  & &__info {
+    bottom: 5px;
+    z-index: 1;
+    padding: 10px;
+  }
+
+  & &__name {
+    color: white;
+    bottom: 7px;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    font-size: 25px;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  & &__tags {
+    color: white;
+    gap: 30px;
+  }
+
+  & &__image {
+    width: 330px;
+    height: 330px;
+  }
+}
+
+.gradient-box {
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    0deg,
+    black 0%,
+    rgba(0, 0, 0, 0.1),
+    transparent 100%
+  );
+  opacity: 0.7;
 }

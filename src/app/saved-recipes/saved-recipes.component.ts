@@ -4,18 +4,19 @@ import { CookieService } from 'ngx-cookie-service';
 import { Recipe } from '../recipes/data/recipe';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-saved-recipes',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, CommonModule, FooterComponent],
   providers: [CookieService],
   templateUrl: './saved-recipes.component.html',
   styleUrl: './saved-recipes.component.scss'
 })
 export class SavedRecipesComponent implements OnInit{
-  recipes!: Recipe[]
+  recipes: Recipe[] = []
 
   constructor(private recipesRepository: RecipesRepository, private cookieService: CookieService, private router: Router, private viewportScroller: ViewportScroller) {}
 
@@ -25,7 +26,7 @@ export class SavedRecipesComponent implements OnInit{
     console.log(savedRecipes)
     savedRecipes.forEach(recipeId => {
       this.recipesRepository.getRecipe(recipeId).subscribe(
-        recipe => console.log(recipe)
+        recipe => this.recipes.push(recipe)
       )
     })
   }

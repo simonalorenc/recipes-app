@@ -1,4 +1,31 @@
 <app-navbar (scrollToRecipesList)="navigateToRecipesList()"></app-navbar>
-<div class="container-flex bg-success recipes-container">
-    <div>WORKS</div>
+<div class="position-relative title-container">
+    <div class="title ps-5">SAVED RECIPES</div>
+    <div class="title-background position-absolute"></div> 
+    <div class="title-line"></div> 
 </div>
+<div
+  class="container-flex recipes-container d-flex justify-content-center align-items-center"
+>
+  <div
+    class="recipe position-relative d-flex justify-content-center"
+    *ngFor="let recipe of recipes"
+  >
+    <img src="assets/images/cross_icon.svg" class="recipe__delete position-absolute"/>
+    <div class="position-absolute recipe__info">
+      <div class="recipe__name">
+        {{ recipe.name | uppercase }}
+      </div>
+      <div
+        class="recipe__tags d-flex justify-content-center align-items-center"
+      >
+        <div class="recipe__tag" *ngFor="let tag of recipe.tags">{{ tag }}</div>
+      </div>
+    </div>
+    <div class="recipe__image-container">
+      <img [src]="recipe.imageUrl" class="recipe__image" alt="recipe image" />
+      <div class="gradient-box position-absolute"></div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
