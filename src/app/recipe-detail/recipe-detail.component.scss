@@ -27,6 +27,7 @@
 
 .icons {
   display: flex;
+  position: relative;
   align-items: center;
   cursor: pointer;
   top: 35px;
@@ -40,6 +41,16 @@
 
   & &__save {
     font-size: 20px;
+  }
+
+  & &__alert {
+    top: 100%;
+    right: 0;
+    padding: 10px;
+    width: 200px;
+    background-color: $background-variant;
+    border: solid 1px $text-primary;
+    border-radius: 20px;
   }
 
   @media (max-width: 1200px) {

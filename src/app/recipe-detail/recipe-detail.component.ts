@@ -29,6 +29,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   currentUrl: string = '';
   urlIsCopied: boolean = false;
   recipeIsSaved!: boolean;
+  savedRecipesAlert: boolean = false
   private subscription!: Subscription;
   saveIcon: IconDefinition = regularBookmark;
   savedIcon: IconDefinition = solidBookmark;
@@ -82,9 +83,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   shareRecipe(): void {
+    this.urlIsCopied = true;
     this.currentUrl = this.router.url;
     this.clipboard.copy(this.currentUrl);
-    this.urlIsCopied = true;
+    if (this.urlIsCopied) {
+      setTimeout(() => {
+        this.urlIsCopied = false
+      }, 3000)
+    }
   }
 
   saveOrDeleteSavedRecipe(): void {
@@ -94,6 +100,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     if (this.recipeIsSaved) {
       savedRecipes.push(this.recipe.id);
       this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
+      this.savedRecipesAlert = true
+      setTimeout(() => {
+        this.savedRecipesAlert = false
+      }, 3000)
     } else if (!this.recipeIsSaved) {
       const recipeId = this.recipe.id
       const index = savedRecipes.findIndex((element) => element === recipeId);
