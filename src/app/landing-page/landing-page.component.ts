@@ -27,8 +27,8 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  private TOP_RECIPE_IDS: number[] = [44, 9, 39];
-  private CAROUSEL_INTERVAL: number = 2000;
+  private readonly TOP_RECIPE_IDS: number[] = [44, 9, 39];
+  private readonly CAROUSEL_INTERVAL: number = 2000;
 
   recipesToCarousel: Recipe[] = [];
   private currentIndex: number = 0;
@@ -73,7 +73,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     carousel.style.transform = `translate(${translateX}px, 0)`;
     carouselName.style.transform = `translate(${translateX}px, 0)`;
   }
-
+ 
   private startCarousel(): void {
     const interval = setInterval(() => {
       this.currentIndex =
@@ -82,7 +82,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     }, this.CAROUSEL_INTERVAL);
   }
 
-  //klikanie na kropki zrobić
   getRecipe(): void {
     this.currentIndex = (this.currentIndex + 1) % this.recipesToCarousel.length;
     this.currentRecipe = this.recipesToCarousel[this.currentIndex];

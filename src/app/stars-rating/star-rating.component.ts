@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RatingModule } from 'ngx-bootstrap/rating';
@@ -11,13 +11,9 @@ import { RatingModule } from 'ngx-bootstrap/rating';
   templateUrl: './star-rating.component.html',
   styleUrl: './star-rating.component.scss'
 })
-export class StarRatingComponent implements OnInit {
+export class StarRatingComponent {
   @Input() rate!: number
 
   max = 5;
-  rateBoot = 7;
   isReadonly = true;
-
-  ngOnInit(): void {
-  }
 }

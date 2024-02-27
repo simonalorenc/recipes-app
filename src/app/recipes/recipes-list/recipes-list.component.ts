@@ -106,8 +106,6 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
     this.subscriptions.push(subscription)
   }
 
-  setTotalPageNumbers() {}
-
   getMealTypeClassInTemplate(mealType: string) {
     return {
       'meal-type__small': mealType.length < this.NUMBER_OF_LETTERS,

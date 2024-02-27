@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CookieService } from 'ngx-cookie-service';
 import { Recipe } from '../recipes/data/recipe';
@@ -22,7 +22,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 export class SavedRecipesComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
   savedRecipes: boolean = false
-  subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = [];
   foodIcon: IconDefinition = faPlateWheat
 
   constructor(
