@@ -68,7 +68,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
           this.cookieService.get('SavedRecipes') || '[]';
         const savedRecipes = JSON.parse(savedRecipesString) as number[];
         if (savedRecipes.includes(this.recipe.id)) {
-          console.log('yep');
           this.recipeIsSaved = true;
         }
       });
@@ -88,12 +87,20 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.urlIsCopied = true;
   }
 
-  saveRecipe(): void {
-    this.recipeIsSaved = true;
-
+  saveOrDeleteSavedRecipe(): void {
+    console.log(this.recipeIsSaved)
+    this.recipeIsSaved = !this.recipeIsSaved;
     const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
-    const savedRecipes = JSON.parse(savedRecipesString) as number[];
-    savedRecipes.push(this.recipe.id);
-    this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
+      const savedRecipes = JSON.parse(savedRecipesString) as number[];
+    if (this.recipeIsSaved) {
+      savedRecipes.push(this.recipe.id);
+      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
+    } else if (!this.recipeIsSaved) {
+      console.log('usuwaaaamy')
+      const recipeId = this.recipe.id
+      const index = savedRecipes.findIndex((element) => element === recipeId);
+      savedRecipes.splice(index, 1);
+      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
+    }
   }
 }

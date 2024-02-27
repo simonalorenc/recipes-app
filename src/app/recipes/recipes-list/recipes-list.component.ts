@@ -40,7 +40,7 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   @Output() clearFilterInputValue = new EventEmitter<string>()
   currentPage: number = 1;
   totalNumberOfPages: number = 0;
-  foundRecipes = true
+  foundRecipes: boolean = true
   private readonly LIMIT_RECIPES_NUMBER: number = 10;
   private readonly NUMBER_OF_LETTERS: number = 6;
   private subscriptions: Subscription[] = [];

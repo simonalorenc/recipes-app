@@ -1,8 +1,6 @@
-import { CommonModule, ViewportScroller } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RoutingService } from '../routing.service';
-import { LandingPageComponent } from '../landing-page/landing-page.component';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +12,7 @@ import { LandingPageComponent } from '../landing-page/landing-page.component';
 export class NavbarComponent {
   @Output() scrollToRecipesList = new EventEmitter<void>()
 
-  constructor(private viewportScroller: ViewportScroller) {}
+  constructor() {}
 
   scrollToRecipes(): void {
     this.scrollToRecipesList.emit()

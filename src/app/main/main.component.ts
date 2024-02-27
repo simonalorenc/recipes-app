@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RecipesListComponent } from '../recipes/recipes-list/recipes-list.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';

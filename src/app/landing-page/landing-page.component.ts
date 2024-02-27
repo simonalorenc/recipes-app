@@ -18,7 +18,6 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { RoutingService } from '../routing.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -40,8 +39,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private recipesRepository: RecipesRepository,
-    private viewportScroller: ViewportScroller, private routingService: RoutingService
-  ) {}
+    private viewportScroller: ViewportScroller) {}
 
   ngOnInit(): void {
     this.TOP_RECIPE_IDS.forEach((id) => {

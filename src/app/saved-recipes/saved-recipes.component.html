@@ -1,25 +1,43 @@
 <app-navbar (scrollToRecipesList)="navigateToRecipesList()"></app-navbar>
 <div class="position-relative title-container">
-    <div class="title ps-5">SAVED RECIPES</div>
-    <div class="title-background position-absolute"></div> 
-    <div class="title-line"></div> 
+  <div class="title ps-5">SAVED RECIPES</div>
+  <div class="title-background position-absolute"></div>
+  <div class="title-line position-absolute"></div>
 </div>
 <div
   class="container-flex recipes-container d-flex justify-content-center align-items-center"
 >
   <div
+    class="no-results d-flex flex-column justify-content-center align-items-center p-5"
+    *ngIf="!savedRecipes"
+  >
+    <div class="no-results__text">You don't have any saved recipes.</div>
+    <a class="no-results__try-again" (click)="navigateToRecipesList()"
+      >Search something for you!</a
+    >
+    <fa-icon class="food-icon p-3" [icon]="foodIcon" size="10x"></fa-icon>
+  </div>
+  <div
     class="recipe position-relative d-flex justify-content-center"
     *ngFor="let recipe of recipes"
+    [routerLink]="['/detail', recipe.id]"
   >
-    <img src="assets/images/cross_icon.svg" class="recipe__delete position-absolute"/>
+    <img
+      src="assets/images/cross-icon-dark.svg"
+      class="recipe__delete position-absolute"
+      alt="delete recipe"
+      (click)="deleteRecipeFromSaved(recipe.id)"
+    />
     <div class="position-absolute recipe__info">
       <div class="recipe__name">
         {{ recipe.name | uppercase }}
       </div>
       <div
-        class="recipe__tags d-flex justify-content-center align-items-center"
+        class="recipe__tags d-flex justify-content-center align-items-center pt-2"
       >
-        <div class="recipe__tag" *ngFor="let tag of recipe.tags">{{ tag }}</div>
+        <div class="recipe__tag" *ngFor="let tag of recipe.tags">
+          {{ tag | uppercase }}
+        </div>
       </div>
     </div>
     <div class="recipe__image-container">

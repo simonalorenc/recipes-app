@@ -19,7 +19,11 @@
           class="position-absolute text-danger newsletter__wrong-email"
           >Enter the correct email
         </small>
-        <alert type="success" class="position-absolute newsletter__alert" *ngIf="showSuccessAlert">
+        <alert
+          type="success"
+          class="position-absolute newsletter__alert"
+          *ngIf="showSuccessAlert"
+        >
           You subscribed the newsletter.
         </alert>
       </div>
@@ -51,32 +55,40 @@
     class="d-flex justify-content-between align-items-center my-4 py-5 social-media"
   >
     <div class="image">
-      <img
-        src="/assets/images/youtube-icon.svg"
-        class="icon"
-        alt="youtube icon"
-      />
+      <a href="https://www.youtube.com/" target="_blank">
+        <img
+          src="/assets/images/youtube-icon.svg"
+          class="icon"
+          alt="youtube icon"
+        />
+      </a>
     </div>
     <div class="image">
-      <img
-        src="/assets/images/instagram-svg.svg"
-        class="icon"
-        alt="instagram icon"
-      />
+      <a href="https://www.instagram.com/" target="_blank">
+        <img
+          src="/assets/images/instagram-svg.svg"
+          class="icon"
+          alt="instagram icon"
+        />
+      </a>
     </div>
     <div class="image">
-      <img
-        src="/assets/images/facebook-icon.svg"
-        class="icon"
-        alt="facebook icon"
-      />
+      <a href="https://www.facebook.com/" target="_blank">
+        <img
+          src="/assets/images/facebook-icon.svg"
+          class="icon"
+          alt="facebook icon"
+        />
+      </a>
     </div>
     <div class="image">
-      <img
-        src="/assets/images/twitter-icon.svg"
-        class="icon"
-        alt="twitter icon"
-      />
+      <a href="https://www.twitter.com/" target="_blank">
+        <img
+          src="/assets/images/twitter-icon.svg"
+          class="icon"
+          alt="twitter icon"
+        />
+      </a>
     </div>
   </div>
   <div class="rights">All right reserved</div>
