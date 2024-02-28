@@ -1,7 +1,7 @@
 @import "/src/variables.scss";
 
 .newsletter {
-  background-color: white;
+  background-color: $background-accent;
 
   & &__container {
     position: relative;
