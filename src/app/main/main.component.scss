@@ -49,11 +49,12 @@ input {
 
 .clear-icon {
   height: 27px;
-  right: -22px;
+  right: -25px;
   color: $text-primary;
 
   @media (max-width: 576px) {
     height: 20px;
+    right: -18px;
   }
 }
 

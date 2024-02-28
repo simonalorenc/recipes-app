@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../recipes/data/recipe';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { SpacePipe } from '../pipes/space.pipe';
 import { StarRatingComponent } from '../stars-rating/star-rating.component';
 import { Subscription } from 'rxjs';
@@ -13,11 +13,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as regularBookmark } from '@fortawesome/free-regular-svg-icons';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-recipe-detail',
   standalone: true,
-  imports: [CommonModule, SpacePipe, StarRatingComponent, FontAwesomeModule],
+  imports: [CommonModule, SpacePipe, StarRatingComponent, FontAwesomeModule, NavbarComponent],
   providers: [Location, CookieService],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss',
@@ -40,7 +41,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private location: Location,
     private router: Router,
     private clipboard: Clipboard,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
@@ -111,4 +113,15 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
     }
   }
+
+  navigateToRecipesList() {
+    this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
+      const currentUrl = this.router.url;
+      if (currentUrl === '/landing-page/main/recipes-list') {
+        this.viewportScroller.scrollToPosition([0, window.innerHeight]);
+      }
+    });
+  }
+
+
 }

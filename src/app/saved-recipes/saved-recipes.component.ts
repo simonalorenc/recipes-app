@@ -54,7 +54,7 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
       const currentUrl = this.router.url;
       if (currentUrl === '/landing-page/main/recipes-list') {
-        this.viewportScroller.scrollToAnchor('recipesList');
+        this.viewportScroller.scrollToPosition([0, window.innerHeight]);
       }
     });
   }

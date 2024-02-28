@@ -27,7 +27,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  private readonly TOP_RECIPE_IDS: number[] = [44, 9, 39];
+  private readonly TOP_RECIPE_IDS: number[] = [44, 9, 10];
   private readonly CAROUSEL_INTERVAL: number = 2000;
 
   recipesToCarousel: Recipe[] = [];

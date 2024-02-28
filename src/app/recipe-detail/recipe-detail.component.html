@@ -1,3 +1,4 @@
+<app-navbar (scrollToRecipesList)="navigateToRecipesList()" [newSavedRecipe]="savedRecipesAlert"></app-navbar>
 <div class="container-flex detail-container">
   <div
     class="recipe-container d-flex align-items-center justify-content-center"
@@ -35,13 +36,13 @@
               class="position-absolute d-flex justify-content-center icons__alert"
               *ngIf="urlIsCopied"
             >
-              Link to recipe copied!
+              Copied link to recipe!
             </div>
             <div
               class="position-absolute d-flex justify-content-center icons__alert save"
               *ngIf="savedRecipesAlert"
             >
-              Saved recipe!
+              Saved recipe! Check it in Saved Recipes.
             </div>
           </div>
           <div class="content__title" *ngIf="!isMobile">

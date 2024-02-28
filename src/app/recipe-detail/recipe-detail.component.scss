@@ -37,10 +37,20 @@
 
   & &__share {
     width: 30px;
+    transition: scale .3s ease-in-out;
+
+    &:hover {
+      scale: 1.1;
+    }
   }
 
   & &__save {
     font-size: 20px;
+    transition: scale .3s ease-in-out;
+
+    &:hover {
+      scale: 1.1;
+    }
   }
 
   & &__alert {
