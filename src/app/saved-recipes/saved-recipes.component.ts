@@ -33,6 +33,7 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.viewportScroller.scrollToPosition([0, 0])
     const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
     const savedRecipes = JSON.parse(savedRecipesString) as number[];
     if (savedRecipes.length != 0) {

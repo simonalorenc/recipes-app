@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { RecipesRepository } from '../data/recipes-repository';
 import { Recipe } from '../data/recipe';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -37,29 +37,32 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   recipes!: Recipe[];
   @Input() isMealTypeChoosed!: boolean;
   @Input() filterInputValue!: string;
-  @Output() clearFilterInputValue = new EventEmitter<string>()
+  @Output() clearFilterInputValue = new EventEmitter<string>();
   currentPage: number = 1;
   totalNumberOfPages: number = 0;
-  foundRecipes: boolean = true
+  foundRecipes: boolean = true;
   private readonly LIMIT_RECIPES_NUMBER: number = 10;
   private readonly NUMBER_OF_LETTERS: number = 6;
   private subscriptions: Subscription[] = [];
   nextIcon: IconDefinition = faChevronRight;
   previousIcon: IconDefinition = faChevronLeft;
-  foodIcon: IconDefinition = faPlateWheat
+  foodIcon: IconDefinition = faPlateWheat;
 
-  constructor(private recipesRepository: RecipesRepository) {}
+  constructor(
+    private recipesRepository: RecipesRepository,
+    private viewportScroller: ViewportScroller
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.renderRecipesList();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe())
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   private getRecipes(limitNumber: number, skipNumber: number) {
-    this.foundRecipes = true
+    this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .getRecipes(limitNumber, skipNumber)
       .subscribe((recipes) => {
@@ -68,7 +71,7 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
           recipes.total / this.LIMIT_RECIPES_NUMBER
         );
       });
-    this.subscriptions.push(subscription)
+    this.subscriptions.push(subscription);
   }
 
   private renderRecipesList() {
@@ -80,30 +83,32 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
       this.totalNumberOfPages = 5;
     } else if (this.filterInputValue !== '') {
       this.filterRecipesList(this.filterInputValue);
-      this.currentPage = 1
+      this.currentPage = 1;
     }
   }
 
   filterRecipesByMealType() {
-    this.foundRecipes = true
+    this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .getRecipesByMealType(this.filterInputValue)
       .subscribe((recipes) => {
         this.recipes = recipes;
       });
-    this.subscriptions.push(subscription)
+    this.subscriptions.push(subscription);
   }
 
   filterRecipesList(value: string) {
-    this.foundRecipes = true
-    const subscription: Subscription = this.recipesRepository.searchRecipes(value).subscribe((recipes) => {
-      this.recipes = recipes;
-      this.totalNumberOfPages = 1;
-      if(this.recipes.length === 0) {
-        this.foundRecipes = false
-      }
-    });
-    this.subscriptions.push(subscription)
+    this.foundRecipes = true;
+    const subscription: Subscription = this.recipesRepository
+      .searchRecipes(value)
+      .subscribe((recipes) => {
+        this.recipes = recipes;
+        this.totalNumberOfPages = 1;
+        if (this.recipes.length === 0) {
+          this.foundRecipes = false;
+        }
+      });
+    this.subscriptions.push(subscription);
   }
 
   getMealTypeClassInTemplate(mealType: string) {
@@ -114,20 +119,22 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   }
 
   tryAnotherSearchIfEmptyState() {
-    this.filterInputValue = ''
-    this.renderRecipesList()
-    this.clearFilterInputValue.emit(this.filterInputValue)
+    this.filterInputValue = '';
+    this.renderRecipesList();
+    this.clearFilterInputValue.emit(this.filterInputValue);
   }
 
   getNextPage() {
     this.currentPage++;
     const skipNumber = (this.currentPage - 1) * this.LIMIT_RECIPES_NUMBER;
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, skipNumber);
+    this.viewportScroller.scrollToPosition([0, window.innerHeight]);
   }
 
   getPreviousPage() {
     this.currentPage--;
     const skipNumber = (this.currentPage - 1) * this.LIMIT_RECIPES_NUMBER;
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, skipNumber);
+    this.viewportScroller.scrollToPosition([0, window.innerHeight]);
   }
 }

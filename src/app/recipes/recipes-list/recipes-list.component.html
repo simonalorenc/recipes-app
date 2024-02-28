@@ -1,4 +1,4 @@
-<div class="d-flex flex-column list-container">
+<div class="d-flex flex-column list-container" id="startList">
   <div class="no-results d-flex flex-column justify-content-center align-items-center p-5" *ngIf="!foundRecipes">
     <div class="no-results__text">Sorry, we couldn't find any recipes that match your search criteria. <a class="no-results__try-again" (click)="tryAnotherSearchIfEmptyState()">Search another recipe!</a></div>
     <fa-icon class="food-icon p-3" [icon]="foodIcon" size="10x"></fa-icon>
