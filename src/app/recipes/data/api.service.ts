@@ -33,8 +33,4 @@ export class ApiService {
       .get<RecipesListDto>(this.BASE_URL + `/search?q=${value}`)
       .pipe(map((recipes: RecipesListDto) => recipes.recipes));
   }
-
-  getTotalNumberOfRecipes() {
-
-  }
 }

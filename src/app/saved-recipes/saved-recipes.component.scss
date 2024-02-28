@@ -24,7 +24,7 @@
 }
 
 .title-background {
-  background-color: white;
+  background-color: $background-accent;
   width: 50%;
   height: 140%;
   top: -20%;
@@ -93,7 +93,7 @@
   }
 
   & &__name {
-    color: white;
+    color: $background-accent;
     bottom: 7px;
     line-height: 1.1;
     letter-spacing: 4px;
@@ -103,7 +103,7 @@
   }
 
   & &__tags {
-    color: white;
+    color: $background-accent;
     gap: 30px;
     font-weight: 300;
     font-size: 12px;

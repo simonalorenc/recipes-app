@@ -2,7 +2,7 @@
 
 .filters {
   margin: 0px 50px;
-  background-color: white;
+  background-color: $background-accent;
   -webkit-box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
   -moz-box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
   box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
@@ -79,7 +79,7 @@ input {
 }
 
 .meal-type-container {
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     grid-column-gap: 50px;
   }
 

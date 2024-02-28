@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CookieService } from 'ngx-cookie-service';
 import { Recipe } from '../recipes/data/recipe';
@@ -14,16 +14,22 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-saved-recipes',
   standalone: true,
-  imports: [NavbarComponent, CommonModule, FooterComponent, RouterModule, FontAwesomeModule],
+  imports: [
+    NavbarComponent,
+    CommonModule,
+    FooterComponent,
+    RouterModule,
+    FontAwesomeModule,
+  ],
   providers: [CookieService],
   templateUrl: './saved-recipes.component.html',
   styleUrl: './saved-recipes.component.scss',
 })
 export class SavedRecipesComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
-  savedRecipes: boolean = false
+  savedRecipes: boolean = false;
   private subscriptions: Subscription[] = [];
-  foodIcon: IconDefinition = faPlateWheat
+  foodIcon: IconDefinition = faPlateWheat;
 
   constructor(
     private recipesRepository: RecipesRepository,
@@ -33,11 +39,12 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.viewportScroller.scrollToPosition([0, 0])
+    this.viewportScroller.scrollToPosition([0, 0]);
+
     const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
     const savedRecipes = JSON.parse(savedRecipesString) as number[];
     if (savedRecipes.length != 0) {
-      this.savedRecipes = true
+      this.savedRecipes = true;
     }
     savedRecipes.forEach((recipeId) => {
       const subscription = this.recipesRepository
@@ -66,8 +73,8 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
     if (savedRecipes.includes(recipeId)) {
       const index = savedRecipes.findIndex((element) => element === recipeId);
       savedRecipes.splice(index, 1);
-      if(savedRecipes.length === 0) {
-        this.savedRecipes = false
+      if (savedRecipes.length === 0) {
+        this.savedRecipes = false;
       }
 
       const indexInRecipes = this.recipes.findIndex(

@@ -27,7 +27,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   recipe!: Recipe;
   isMobile!: boolean;
   rate!: number;
-  currentUrl: string = '';
+  private currentUrl: string = '';
   urlIsCopied: boolean = false;
   recipeIsSaved!: boolean;
   savedRecipesAlert: boolean = false

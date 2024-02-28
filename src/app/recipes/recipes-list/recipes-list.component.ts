@@ -61,19 +61,6 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  private getRecipes(limitNumber: number, skipNumber: number) {
-    this.foundRecipes = true;
-    const subscription: Subscription = this.recipesRepository
-      .getRecipes(limitNumber, skipNumber)
-      .subscribe((recipes) => {
-        this.recipes = recipes.recipes;
-        this.totalNumberOfPages = Math.ceil(
-          recipes.total / this.LIMIT_RECIPES_NUMBER
-        );
-      });
-    this.subscriptions.push(subscription);
-  }
-
   private renderRecipesList() {
     if (this.isMealTypeChoosed) {
       this.totalNumberOfPages = 1;
@@ -87,7 +74,7 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
     }
   }
 
-  filterRecipesByMealType() {
+  private filterRecipesByMealType() {
     this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .getRecipesByMealType(this.filterInputValue)
@@ -97,7 +84,20 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
     this.subscriptions.push(subscription);
   }
 
-  filterRecipesList(value: string) {
+  private getRecipes(limitNumber: number, skipNumber: number) {
+    this.foundRecipes = true;
+    const subscription: Subscription = this.recipesRepository
+      .getRecipes(limitNumber, skipNumber)
+      .subscribe((recipes) => {
+        this.recipes = recipes.recipes;
+        this.totalNumberOfPages = Math.ceil(
+          recipes.total / this.LIMIT_RECIPES_NUMBER
+        );
+      });
+    this.subscriptions.push(subscription);
+  }
+
+  private filterRecipesList(value: string) {
     this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .searchRecipes(value)
