@@ -15,7 +15,7 @@
           (click)="onSubmit()"
         ></fa-icon>
         <small
-          *ngIf="isSubmit && email.invalid"
+          *ngIf="showFailAlert"
           class="position-absolute text-danger newsletter__wrong-email"
           >Enter the correct email
         </small>
@@ -91,5 +91,5 @@
       </a>
     </div>
   </div>
-  <div class="rights">© CULINARY CRAFTS 2024 All right reserved.</div>
+  <div class="rights">© CULINARY CRAFTS 2024 All rights reserved.</div>
 </div>

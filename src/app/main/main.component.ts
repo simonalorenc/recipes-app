@@ -53,8 +53,8 @@ export class MainComponent {
     this.isMealTypeChoosed = false;
   }
 
-  clearFilterInput(text: string) {
+  clearFilterInput() { 
     this.searchInput.nativeElement.value = '';
     this.clickedMealType = ''
-  } 
+  }
 }

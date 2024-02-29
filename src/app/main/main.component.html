@@ -11,7 +11,7 @@
         />
         <div
           class="position-absolute clear-all"
-          (click)="deleteMealTypeFilter(); clearFilterInput('')"
+          (click)="deleteMealTypeFilter(); clearFilterInput()"
           *ngIf="searchInput.value"
         >
           <img src="assets/images/cross_icon.svg" class="clear-all__icon" alt="clear icon">
@@ -26,10 +26,10 @@
             <span
               [ngStyle]="{ 'margin-right.px': last ? 0 : undefined }"
               (click)="changeRecipesByMealType(mealType)"
-              [ngClass]="{ active: clickedMealType === mealType }"
+              [ngClass]="{ active: clickedMealType === mealType && isMealTypeChoosed }"
               >{{ mealType }}
             </span>
-            <img src="assets/images/cross-icon-dark.svg" class="clear-icon position-absolute" *ngIf="clickedMealType === mealType" (click)="deleteMealTypeFilter(); clearFilterInput('')" alt="clear meal type icon">
+            <img src="assets/images/cross-icon-dark.svg" class="clear-icon position-absolute" *ngIf="clickedMealType === mealType && isMealTypeChoosed" (click)="deleteMealTypeFilter(); clearFilterInput()" alt="clear meal type icon">
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
           <app-recipes-list
             [filterInputValue]="searchInput.value"
             [isMealTypeChoosed]="isMealTypeChoosed"
-            (clearFilterInputValue)="clearFilterInput($event)"
+            (clearFilterInputValue)="clearFilterInput()"
           ></app-recipes-list>
         </div>
       </div>

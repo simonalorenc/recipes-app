@@ -9,31 +9,31 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule ,FontAwesomeModule, AlertModule],
+  imports: [ReactiveFormsModule, CommonModule, FontAwesomeModule, AlertModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-  email = new FormControl('',[Validators.required, Validators.email])
-  isSubmit: boolean = false
-  showSuccessAlert: boolean = false
-  arrowIcon: IconDefinition = faArrowRight
+  private readonly ALERT_TIME = 3000;
+
+  email = new FormControl('', [Validators.required, Validators.email]);
+  showSuccessAlert: boolean = false;
+  showFailAlert: boolean = false;
+  arrowIcon: IconDefinition = faArrowRight;
 
   onSubmit() {
-    this.isSubmit= true
-    if(this.email.valid && this.isSubmit) {
-      console.log('teraz')
-    }
-    if(this.email.valid) {
-      this.showSuccessAlert = true
+    if (this.email.valid) {
+      this.showSuccessAlert = true;
       setTimeout(() => {
-        this.showSuccessAlert = false
-      }, 3000)
-      this.email.setValue('')
+        this.showSuccessAlert = false;
+      }, this.ALERT_TIME);
+      this.email.setValue('');
       this.email.markAsUntouched();
-      this.isSubmit= false
     } else {
-      return
+      this.showFailAlert = true
+      setTimeout(() => {
+        this.showFailAlert = false
+      }, this.ALERT_TIME)
     }
   }
 }

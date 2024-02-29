@@ -34,13 +34,12 @@ import { Subscription } from 'rxjs';
   styleUrl: './recipes-list.component.scss',
 })
 export class RecipesListComponent implements OnChanges, OnDestroy {
-  recipes!: Recipe[];
+  recipes: Recipe[] = [];
   @Input() isMealTypeChoosed!: boolean;
   @Input() filterInputValue!: string;
   @Output() clearFilterInputValue = new EventEmitter<string>();
   currentPage: number = 1;
   totalNumberOfPages: number = 0;
-  foundRecipes: boolean = true;
   private readonly LIMIT_RECIPES_NUMBER: number = 10;
   private readonly NUMBER_OF_LETTERS: number = 6;
   private subscriptions: Subscription[] = [];
@@ -75,7 +74,6 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   }
 
   private filterRecipesByMealType() {
-    this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .getRecipesByMealType(this.filterInputValue)
       .subscribe((recipes) => {
@@ -85,7 +83,6 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   }
 
   private getRecipes(limitNumber: number, skipNumber: number) {
-    this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .getRecipes(limitNumber, skipNumber)
       .subscribe((recipes) => {
@@ -98,15 +95,11 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   }
 
   private filterRecipesList(value: string) {
-    this.foundRecipes = true;
     const subscription: Subscription = this.recipesRepository
       .searchRecipes(value)
       .subscribe((recipes) => {
         this.recipes = recipes;
         this.totalNumberOfPages = 1;
-        if (this.recipes.length === 0) {
-          this.foundRecipes = false;
-        }
       });
     this.subscriptions.push(subscription);
   }

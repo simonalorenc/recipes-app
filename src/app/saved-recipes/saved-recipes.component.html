@@ -1,4 +1,4 @@
-<app-navbar (scrollToRecipesList)="navigateToRecipesList()"></app-navbar>
+<app-navbar></app-navbar>
 <div class="position-relative title-container">
   <div class="title ps-5">SAVED RECIPES</div>
   <div class="title-background position-absolute"></div>
@@ -9,7 +9,7 @@
 >
   <div
     class="no-results d-flex flex-column justify-content-center align-items-center p-5"
-    *ngIf="!savedRecipes"
+    *ngIf="recipes.length === 0"
   >
     <div class="no-results__text">You don't have any saved recipes.</div>
     <a class="no-results__try-again" (click)="navigateToRecipesList()"

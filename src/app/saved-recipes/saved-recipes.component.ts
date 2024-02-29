@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RecipesRepository } from '../recipes/data/recipes-repository';
 import { CookieService } from 'ngx-cookie-service';
 import { Recipe } from '../recipes/data/recipe';
 import { NavbarComponent } from '../navbar/navbar.component';
@@ -10,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faPlateWheat } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SavedRecipesRepository } from '../saved-recipes-repository';
 
 @Component({
   selector: 'app-saved-recipes',
@@ -27,13 +27,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class SavedRecipesComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
-  savedRecipes: boolean = false;
   private subscriptions: Subscription[] = [];
   foodIcon: IconDefinition = faPlateWheat;
 
   constructor(
-    private recipesRepository: RecipesRepository,
-    private cookieService: CookieService,
+    private savedRecipesRepository: SavedRecipesRepository,
     private router: Router,
     private viewportScroller: ViewportScroller
   ) {}
@@ -41,24 +39,15 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
 
-    const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
-    const savedRecipes = JSON.parse(savedRecipesString) as number[];
-    if (savedRecipes.length != 0) {
-      this.savedRecipes = true;
-    }
-    savedRecipes.forEach((recipeId) => {
-      const subscription = this.recipesRepository
-        .getRecipe(recipeId)
-        .subscribe((recipe) => this.recipes.push(recipe));
-      this.subscriptions.push(subscription);
-    });
+    this.savedRecipesRepository.checkSavedRecipes()
+    this.savedRecipesRepository.renderSavedRecipes(this.recipes)
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  navigateToRecipesList() {
+  navigateToRecipesList(): void {
     this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
       const currentUrl = this.router.url;
       if (currentUrl === '/landing-page/main/recipes-list') {
@@ -67,22 +56,7 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteRecipeFromSaved(recipeId: number) {
-    const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
-    const savedRecipes = JSON.parse(savedRecipesString) as number[];
-    if (savedRecipes.includes(recipeId)) {
-      const index = savedRecipes.findIndex((element) => element === recipeId);
-      savedRecipes.splice(index, 1);
-      if (savedRecipes.length === 0) {
-        this.savedRecipes = false;
-      }
-
-      const indexInRecipes = this.recipes.findIndex(
-        (recipe) => recipe.id === recipeId
-      );
-      this.recipes.splice(indexInRecipes, 1);
-
-      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
-    }
+  deleteRecipeFromSaved(recipeId: number): void {
+    this.savedRecipesRepository.deleteRecipeFromSaved(recipeId, this.recipes)
   }
 }

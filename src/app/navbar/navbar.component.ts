@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -14,23 +14,35 @@ import { faBookmark } from '@fortawesome/free-regular-svg-icons';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnChanges {
-  @Output() scrollToRecipesList = new EventEmitter<void>();
+  private readonly ANIMATION_TIME = 1500
+
   @Input() newSavedRecipe!: boolean
 
   searchIcon: IconDefinition = faMagnifyingGlass;
   saveIcon: IconDefinition = faBookmark;
   iconClass: string = ''
 
-  constructor() {}
+  constructor(private router: Router, private viewportScroller: ViewportScroller) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.newSavedRecipe) {
       this.iconClass = 'active'
-      setTimeout(() => this.iconClass = '', 1500) 
+      setTimeout(() => this.iconClass = '', this.ANIMATION_TIME)
     }
   }
 
+  goToMainPage() {
+    this.router.navigate(['/landing-page/main/recipes-list'])
+  }
+
   scrollToRecipes(): void {
-    this.scrollToRecipesList.emit();
+    const currentUrl = this.router.url
+    if(currentUrl === '/landing-page/main/recipes-list') {
+      this.viewportScroller.scrollToPosition([0, window.innerHeight]);
+    } else {
+      this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
+        this.viewportScroller.scrollToPosition([0, window.innerHeight]);
+      })
+    }
   }
 }

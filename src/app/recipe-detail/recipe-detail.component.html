@@ -1,4 +1,4 @@
-<app-navbar (scrollToRecipesList)="navigateToRecipesList()" [newSavedRecipe]="savedRecipesAlert"></app-navbar>
+<app-navbar [newSavedRecipe]="savedRecipesAlert"></app-navbar>
 <div class="container-flex detail-container">
   <div
     class="recipe-container d-flex align-items-center justify-content-center"
@@ -34,7 +34,7 @@
             ></fa-icon>
             <div
               class="position-absolute d-flex justify-content-center icons__alert"
-              *ngIf="urlIsCopied"
+              *ngIf="urlIsCopiedAlert"
             >
               Copied link to recipe!
             </div>

@@ -8,29 +8,37 @@ import { StarRatingComponent } from '../stars-rating/star-rating.component';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { CookieService } from 'ngx-cookie-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as regularBookmark } from '@fortawesome/free-regular-svg-icons';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { SavedRecipesRepository } from '../saved-recipes-repository';
 
 @Component({
   selector: 'app-recipe-detail',
   standalone: true,
-  imports: [CommonModule, SpacePipe, StarRatingComponent, FontAwesomeModule, NavbarComponent],
-  providers: [Location, CookieService],
+  imports: [
+    CommonModule,
+    SpacePipe,
+    StarRatingComponent,
+    FontAwesomeModule,
+    NavbarComponent,
+  ],
+  providers: [Location],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.scss',
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
+  private readonly ALERT_TIME = 3000
+
   recipe!: Recipe;
   isMobile!: boolean;
   rate!: number;
   private currentUrl: string = '';
-  urlIsCopied: boolean = false;
+  urlIsCopiedAlert: boolean = false;
   recipeIsSaved!: boolean;
-  savedRecipesAlert: boolean = false
+  savedRecipesAlert: boolean = false;
   private subscription!: Subscription;
   saveIcon: IconDefinition = regularBookmark;
   savedIcon: IconDefinition = solidBookmark;
@@ -41,7 +49,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private location: Location,
     private router: Router,
     private clipboard: Clipboard,
-    private cookieService: CookieService,
+    private savedRecipesRepository: SavedRecipesRepository,
     private viewportScroller: ViewportScroller
   ) {}
 
@@ -67,12 +75,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       .subscribe((recipe) => {
         this.recipe = recipe;
         this.rate = recipe.rating;
-        const savedRecipesString =
-          this.cookieService.get('SavedRecipes') || '[]';
-        const savedRecipes = JSON.parse(savedRecipesString) as number[];
-        if (savedRecipes.includes(this.recipe.id)) {
-          this.recipeIsSaved = true;
-        }
+        this.recipeIsSaved = this.savedRecipesRepository.checkIfRecipeIsSave(
+          this.recipe.id
+        );
       });
   }
 
@@ -85,33 +90,28 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   shareRecipe(): void {
-    this.urlIsCopied = true;
+    this.urlIsCopiedAlert = true;
     this.currentUrl = this.router.url;
     this.clipboard.copy(this.currentUrl);
-    if (this.urlIsCopied) {
+    if (this.urlIsCopiedAlert) {
       setTimeout(() => {
-        this.urlIsCopied = false
-      }, 3000)
+        this.urlIsCopiedAlert = false;
+      }, this.ALERT_TIME);
     }
   }
 
   saveOrDeleteSavedRecipe(): void {
     this.recipeIsSaved = !this.recipeIsSaved;
-    const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
-    const savedRecipes = JSON.parse(savedRecipesString) as number[];
-    if (this.recipeIsSaved) {
-      savedRecipes.push(this.recipe.id);
-      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
-      this.savedRecipesAlert = true
+    if(this.recipeIsSaved) {
+      this.savedRecipesAlert = true;
       setTimeout(() => {
-        this.savedRecipesAlert = false
-      }, 3000)
-    } else if (!this.recipeIsSaved) {
-      const recipeId = this.recipe.id
-      const index = savedRecipes.findIndex((element) => element === recipeId);
-      savedRecipes.splice(index, 1);
-      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
+        this.savedRecipesAlert = false;
+      }, this.ALERT_TIME);
     }
+    this.savedRecipesRepository.saveOrDeleteSavedRecipe(
+      this.recipeIsSaved,
+      this.recipe.id,
+    );
   }
 
   navigateToRecipesList() {
