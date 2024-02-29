@@ -47,15 +47,6 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  navigateToRecipesList(): void {
-    this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
-      const currentUrl = this.router.url;
-      if (currentUrl === '/landing-page/main/recipes-list') {
-        this.viewportScroller.scrollToPosition([0, window.innerHeight]);
-      }
-    });
-  }
-
   deleteRecipeFromSaved(recipeId: number): void {
     this.savedRecipesRepository.deleteRecipeFromSaved(recipeId, this.recipes)
   }

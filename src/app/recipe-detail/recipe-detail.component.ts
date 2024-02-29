@@ -113,13 +113,4 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       this.recipe.id,
     );
   }
-
-  navigateToRecipesList() {
-    this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
-      const currentUrl = this.router.url;
-      if (currentUrl === '/landing-page/main/recipes-list') {
-        this.viewportScroller.scrollToPosition([0, window.innerHeight]);
-      }
-    });
-  }
 }
