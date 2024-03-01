@@ -9,6 +9,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { RouteReuseStrategy } from '@angular/router';
+import { AppReuseStrategy } from './reuse-strategy';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     AlertModule.forRoot(),
     ClipboardModule
   ],
-  providers: [],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: AppReuseStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
