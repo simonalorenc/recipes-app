@@ -30,7 +30,7 @@ import { SavedRecipesRepository } from '../saved-recipes-repository';
   styleUrl: './recipe-detail.component.scss',
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-  private readonly ALERT_TIME = 3000
+  private readonly ALERT_TIME = 3000;
 
   recipe!: Recipe;
   isMobile!: boolean;
@@ -50,6 +50,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private clipboard: Clipboard,
     private savedRecipesRepository: SavedRecipesRepository,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +91,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   shareRecipe(): void {
     this.urlIsCopiedAlert = true;
-    this.currentUrl = this.router.url;
+    this.currentUrl = window.location.origin + this.router.url;
     this.clipboard.copy(this.currentUrl);
     if (this.urlIsCopiedAlert) {
       setTimeout(() => {
@@ -101,7 +102,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   saveOrDeleteSavedRecipe(): void {
     this.recipeIsSaved = !this.recipeIsSaved;
-    if(this.recipeIsSaved) {
+    if (this.recipeIsSaved) {
       this.savedRecipesAlert = true;
       setTimeout(() => {
         this.savedRecipesAlert = false;
@@ -109,7 +110,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     }
     this.savedRecipesRepository.saveOrDeleteSavedRecipe(
       this.recipeIsSaved,
-      this.recipe.id,
+      this.recipe.id
     );
   }
 }
