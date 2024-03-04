@@ -17,14 +17,15 @@ Tech stack:
 
 ## Some screenshots:
 
-![Alt text](src/assets/screenshots/all.png)
-![Alt text](src/assets/screenshots/detail_usd.png)
+![Alt text](src/assets/screenshots/desktop_1.png)
+![Alt text](src/assets/screenshots/desktop_2.png)
+![Alt text](src/assets/screenshots/desktop_3.png)
 
 <p align="center">
     <img
-  src="src/assets/screenshots/mobile_all.png"
+  src="src/assets/screenshots/mobile_1.png"
   width="300px">
     <img
-  src="src/assets/screenshots/mobile_detail.png"
+  src="src/assets/screenshots/mobile_2.png"
   width="300px">    
 </p>
