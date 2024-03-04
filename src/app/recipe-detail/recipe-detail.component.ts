@@ -50,7 +50,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private clipboard: Clipboard,
     private savedRecipesRepository: SavedRecipesRepository,
-    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
