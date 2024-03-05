@@ -8,6 +8,26 @@
   }
 }
 
+.no-results {
+  & &__text {
+    color: $text-primary;
+    letter-spacing: 4px;
+    font-size: 20px;
+    font-weight: 300;
+  }
+
+  & &__try-again {
+    cursor: pointer;
+    color: $text-primary;
+    font-weight: 400;
+    text-decoration: underline;
+  }
+}
+
+.food-icon {
+  color: $text-primary;
+}
+
 .recipe-container {
   cursor: pointer;
   position: relative;
@@ -15,7 +35,7 @@
   z-index: 1;
   border-top: 1.5px solid $text-primary;
   min-height: 230px;
-  transition: background-color ease-in-out .4s;
+  transition: background-color ease-in-out 0.4s;
 
   &:hover {
     background-color: #f9f8f5;
@@ -63,7 +83,6 @@
 .image {
   width: 130px;
   height: 130px;
-//   border: solid 1px $text-primary;
   border-radius: 50%;
   filter: saturate(85%) contrast(95%);
   transition: transform 0.5s ease;
@@ -106,18 +125,12 @@
 
   & &__tags {
     flex-wrap: wrap;
-  }
-
-  & &__tag {
     font-size: 18px;
     color: $text-primary;
     font-weight: 400;
   }
 
   @media (max-width: 992px) {
-    & &__container {
-      max-width: 300px;
-    }
   }
 
   @media (max-width: 576px) {
@@ -191,9 +204,13 @@
 
 .pagination {
   & &__button {
-    cursor: pointer;
     width: 32px;
     height: 32px;
+  }
+
+  & &__icon {
+    padding: 5px;
+    cursor: pointer;
   }
 
   & &__current-page {

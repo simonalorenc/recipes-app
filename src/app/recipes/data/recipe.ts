@@ -28,6 +28,6 @@ export class Recipe {
         this.tags = dto.tags;
         this.imageUrl = dto.image;
         this.rating = dto.rating;
-        this.mealType = dto.mealType
+        this.mealType = dto.mealType;
     }
 }

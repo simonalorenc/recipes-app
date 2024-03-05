@@ -1,4 +1,16 @@
-<div class="d-flex flex-column list-container">
+<div class="d-flex flex-column list-container" id="startList">
+  <div
+    class="no-results d-flex flex-column justify-content-center align-items-center p-5"
+    *ngIf="recipes.length === 0"
+  >
+    <div class="no-results__text">
+      Sorry, we couldn't find any recipes that match your search criteria.
+      <a class="no-results__try-again" (click)="tryAnotherSearchIfEmptyState()"
+        >Search another recipe!</a
+      >
+    </div>
+    <fa-icon class="food-icon p-3" [icon]="foodIcon" size="10x"></fa-icon>
+  </div>
   <div
     class="recipe-container d-flex position-relative"
     *ngFor="let recipe of recipes"
@@ -9,7 +21,9 @@
         <img [src]="recipe.imageUrl" class="image col-4" />
       </div>
       <div class="d-flex justify-content-between w-100">
-        <div class="content__container d-flex justify-content-between flex-column">
+        <div
+          class="content__container d-flex justify-content-between flex-column"
+        >
           <div>
             <h2 class="content__title">{{ recipe.name | uppercase }}</h2>
             <div></div>
@@ -17,10 +31,11 @@
           <div class="content__text d-flex flex-column lh-base">
             <span>Cuisine: {{ recipe.cuisine }} </span>
             <span> Total time to prepare: {{ recipe.timeToPrepare }} min</span>
-            <span>Difficulty evel: {{ recipe.difficulty | lowercase }}</span>
+            <span>Difficulty level: {{ recipe.difficulty | lowercase }}</span>
           </div>
           <div class="d-flex content__tags">
-            <div class="me-3 content__tag" *ngFor="let tag of recipe.tags">
+            <div class="me-3">Meal tags:</div>
+            <div class="me-3" *ngFor="let tag of recipe.tags">
               {{ tag | lowercase }}
             </div>
           </div>
@@ -38,20 +53,31 @@
     </div>
   </div>
   <div
-    class="d-flex flex-grow-1 justify-content-center align-items-center pagination"
+    class="d-flex flex-grow-1 justify-content-center align-items-center p-4 pagination"
   >
     <div
       class="d-flex align-items-center justify-content-center pagination__button"
     >
-      <fa-icon [icon]="previousIcon" size="xs" [style.display]="currentPage === 1 ? 'none' : 'block'" (click)="getPreviousPage()"></fa-icon>
+      <fa-icon
+        [icon]="previousIcon"
+        size="xs"
+        class="pagination__icon"
+        [style.display]="currentPage === 1 ? 'none' : 'block'" (click)="getPreviousPage()"
+      ></fa-icon>
     </div>
     <div class="pagination__current-page mx-3">
       page {{ currentPage }} of {{ totalNumberOfPages }}
     </div>
     <div
       class="d-flex align-items-center justify-content-center pagination__button"
+      
     >
-      <fa-icon [icon]="nextIcon" size="xs" [style.display]="currentPage === totalNumberOfPages ? 'none' : 'block'" (click)="getNextPage()"></fa-icon>
+      <fa-icon
+        [icon]="nextIcon"
+        size="xs"
+        class="pagination__icon"
+        [style.display]="currentPage === totalNumberOfPages ? 'none' : 'block'" (click)="getNextPage()"
+      ></fa-icon>
     </div>
   </div>
 </div>

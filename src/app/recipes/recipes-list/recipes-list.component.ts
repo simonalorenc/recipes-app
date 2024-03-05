@@ -1,13 +1,15 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { RecipesRepository } from '../data/recipes-repository';
 import { Recipe } from '../data/recipe';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RecipeDetailComponent } from 'src/app/recipe-detail/recipe-detail.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,6 +17,7 @@ import {
   IconDefinition,
   faChevronRight,
   faChevronLeft,
+  faPlateWheat,
 } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 
@@ -31,9 +34,10 @@ import { Subscription } from 'rxjs';
   styleUrl: './recipes-list.component.scss',
 })
 export class RecipesListComponent implements OnChanges, OnDestroy {
-  recipes!: Recipe[];
+  recipes: Recipe[] = [];
   @Input() isMealTypeChoosed!: boolean;
   @Input() filterInputValue!: string;
+  @Output() clearFilterInputValue = new EventEmitter<string>();
   currentPage: number = 1;
   totalNumberOfPages: number = 0;
   private readonly LIMIT_RECIPES_NUMBER: number = 10;
@@ -41,15 +45,41 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
   private subscriptions: Subscription[] = [];
   nextIcon: IconDefinition = faChevronRight;
   previousIcon: IconDefinition = faChevronLeft;
+  foodIcon: IconDefinition = faPlateWheat;
 
-  constructor(private recipesRepository: RecipesRepository) {}
+  constructor(
+    private recipesRepository: RecipesRepository,
+    private viewportScroller: ViewportScroller
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.renderRecipesList();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe())
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  private renderRecipesList() {
+    if (this.isMealTypeChoosed) {
+      this.totalNumberOfPages = 1;
+      this.filterRecipesByMealType();
+    } else if (this.filterInputValue === '') {
+      this.getRecipes(this.LIMIT_RECIPES_NUMBER, 0);
+      this.totalNumberOfPages = 5;
+    } else if (this.filterInputValue !== '') {
+      this.filterRecipesList(this.filterInputValue);
+      this.currentPage = 1;
+    }
+  }
+
+  private filterRecipesByMealType() {
+    const subscription: Subscription = this.recipesRepository
+      .getRecipesByMealType(this.filterInputValue)
+      .subscribe((recipes) => {
+        this.recipes = recipes;
+      });
+    this.subscriptions.push(subscription);
   }
 
   private getRecipes(limitNumber: number, skipNumber: number) {
@@ -61,43 +91,18 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
           recipes.total / this.LIMIT_RECIPES_NUMBER
         );
       });
-    this.subscriptions.push(subscription)
+    this.subscriptions.push(subscription);
   }
 
-  private renderRecipesList() {
-    if (this.isMealTypeChoosed) {
-      console.log('wybrany type-meal');
-      this.totalNumberOfPages = 1;
-      this.filterRecipesByMealType();
-    } else if (this.filterInputValue === '') {
-      console.log('searchInput jest pusty i brak type-meal');
-      this.getRecipes(this.LIMIT_RECIPES_NUMBER, 0);
-      this.totalNumberOfPages = 5;
-    } else if (this.filterInputValue !== '') {
-      console.log('searchInput NIE jest pusty i brak type-meal');
-      this.filterRecipesList(this.filterInputValue);
-      this.currentPage = 1
-    }
-  }
-
-  filterRecipesByMealType() {
+  private filterRecipesList(value: string) {
     const subscription: Subscription = this.recipesRepository
-      .getRecipesByMealType(this.filterInputValue)
+      .searchRecipes(value)
       .subscribe((recipes) => {
         this.recipes = recipes;
+        this.totalNumberOfPages = 1;
       });
-    this.subscriptions.push(subscription)
+    this.subscriptions.push(subscription);
   }
-
-  filterRecipesList(value: string) {
-    const subscription: Subscription = this.recipesRepository.searchRecipes(value).subscribe((recipes) => {
-      this.recipes = recipes;
-      this.totalNumberOfPages = 1;
-    });
-    this.subscriptions.push(subscription)
-  }
-
-  setTotalPageNumbers() {}
 
   getMealTypeClassInTemplate(mealType: string) {
     return {
@@ -106,15 +111,23 @@ export class RecipesListComponent implements OnChanges, OnDestroy {
     };
   }
 
+  tryAnotherSearchIfEmptyState() {
+    this.filterInputValue = '';
+    this.renderRecipesList();
+    this.clearFilterInputValue.emit(this.filterInputValue);
+  }
+
   getNextPage() {
     this.currentPage++;
     const skipNumber = (this.currentPage - 1) * this.LIMIT_RECIPES_NUMBER;
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, skipNumber);
+    this.viewportScroller.scrollToPosition([0, window.innerHeight]);
   }
 
   getPreviousPage() {
     this.currentPage--;
     const skipNumber = (this.currentPage - 1) * this.LIMIT_RECIPES_NUMBER;
     this.getRecipes(this.LIMIT_RECIPES_NUMBER, skipNumber);
+    this.viewportScroller.scrollToPosition([0, window.innerHeight]);
   }
 }

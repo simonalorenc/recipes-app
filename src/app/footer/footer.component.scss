@@ -1,54 +1,56 @@
 @import "/src/variables.scss";
 
-.footer {
-  color: $background-variant;
-  overflow-x: hidden;
-  background-color: $background-footer;
-}
+.newsletter {
+  background-color: $background-accent;
 
-.animation-container {
-    display: block;
-    border-top: solid 1px $background-variant;
-    border-bottom: solid 1px$background-variant;
-    white-space: nowrap;
-}
-
-.animation {
+  & &__container {
+    position: relative;
     display: inline-block;
-    animation: slideTitle 4s linear infinite;
-}
+  }
 
-.animation-title {
-    display: inline-block;
+  & &__title {
+    color: $text-primary;
     font-size: 40px;
     font-weight: 300;
-    margin-left: 50px;
+    letter-spacing: 4px;
+  }
 
-    @media (max-width: 576px) {
-      font-size: 25px;
-    }
-}
+  & &__text {
+    color: $text-primary;
+    font-size: 18px;
+    font-weight: 300;
+  }
 
-@keyframes slideTitle {
-    0% {
-        transform: translateZ(0)
-    }
-    to {
-        transform: translate3d(-100%,0,0)
-    }
-}
+  & &__wrong-email {
+    top: 100%;
+    left: 0;
+    font-weight: 300;
+  }
 
-.input-container {
-  position: relative;
-  display: inline-block;
+  & &__alert {
+    width: 100%;
+    top: 50px;
+    left: 0;
+    text-align: center;
+  }
 }
 
 input {
+  width: 100%;
   background: none;
   outline: none;
-  border: 1px solid $background-variant;
   padding: 10px;
-  color: $background-variant;
+  color: $text-primary;
+  border: 1px solid $underline;
+  transition: border .3s ease-in-out;
+
+  &:focus {
+    border: 1px solid $text-primary;
+  }
+
+  &:hover {
+    border: 1px solid $text-primary;
+  }
 }
 
 ::-webkit-input-placeholder {
@@ -56,7 +58,9 @@ input {
 }
 
 .arrow {
-  color: $background-variant;
+  right: 0;
+  top: 3px;
+  color: $underline;
   position: absolute;
 }
 
@@ -66,9 +70,42 @@ input {
   transform: translateY(-50%);
 }
 
-.email-alert {
-  top: 100px;
-  left: 0;
+.footer {
+  color: $background-variant;
+  overflow-x: hidden;
+  background-color: $background-footer;
+}
+
+.animation-container {
+  display: block;
+  border-top: solid 1px $background-variant;
+  border-bottom: solid 1px$background-variant;
+  white-space: nowrap;
+}
+
+.animation {
+  display: inline-block;
+  animation: slideTitle 4s linear infinite;
+}
+
+.animation-title {
+  display: inline-block;
+  font-size: 40px;
+  font-weight: 300;
+  margin-left: 50px;
+
+  @media (max-width: 576px) {
+    font-size: 25px;
+  }
+}
+
+@keyframes slideTitle {
+  0% {
+    transform: translateZ(0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
 }
 
 .icon {
@@ -83,7 +120,7 @@ input {
   border-radius: 50%;
 
   @media (max-width: 992px) {
-    width:130px;
+    width: 130px;
     height: 130px;
     padding: 30px;
   }
@@ -127,7 +164,7 @@ input {
   background: $footer-hover;
   border-radius: 50%;
   transform: scale(0);
-  transition: transform ease-in-out .35s;
+  transition: transform ease-in-out 0.35s;
   z-index: -1;
 
   @media (max-width: 992px) {
@@ -149,3 +186,8 @@ input {
   transform: scale(1);
 }
 
+.rights {
+  color: $background-variant;
+  font-size: 14px;
+  font-weight: 300;
+}

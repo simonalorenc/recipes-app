@@ -1,0 +1,17 @@
+<div
+  class="bg-white d-flex justify-content-between px-5 pt-2 fixed-top align-items-center"
+>
+  <div class="logo d-flex align-items-end" (click)="goToMainPage()">
+    <img class="logo__svg" src="assets/images/food-svg.svg" />
+    <span>CulinaryCrafts</span>
+  </div>
+  <div class="options-container d-flex">
+    <div class="options-container__option" (click)="scrollToRecipes()">
+      <fa-icon [icon]="searchIcon"></fa-icon>
+    </div>
+    <div class="options-container__line"></div>
+    <div class="options-container__option" routerLink="/saved-recipes">
+      <fa-icon [icon]="saveIcon" [class]="iconClass"></fa-icon>
+    </div>
+  </div>
+</div>

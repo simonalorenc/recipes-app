@@ -9,31 +9,6 @@
   min-height: 100vh;
 }
 
-.logo {
-  top: 40px;
-  left: 40px;
-  z-index: 1;
-}
-
-.options-container {
-  top: 40px;
-  right: 40px;
-  gap: 40px;
-
-  & &__option {
-    letter-spacing: 3px;
-    font-size: 15px;
-    font-weight: 500;
-    color: $underline;
-    cursor: pointer;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    } 
-  }
-}
-
 .title {
 
   & &__main {

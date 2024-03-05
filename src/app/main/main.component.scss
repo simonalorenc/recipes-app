@@ -2,7 +2,7 @@
 
 .filters {
   margin: 0px 50px;
-  background-color: white;
+  background-color: $background-accent;
   -webkit-box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
   -moz-box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
   box-shadow: 0px 9px 36px -27px rgba(66, 68, 90, 0.64);
@@ -13,28 +13,49 @@ input {
   background: none;
   outline: none;
   border: 1px solid $underline;
-}
+  transition: border .3s ease-in-out;
 
-input:focus {
-  border: 1px solid $text-primary;
+  &:focus {
+    border: 1px solid $text-primary;
+  }
+
+  &:hover {
+    border: 1px solid $text-primary;
+  }
 }
 
 ::-webkit-input-placeholder {
   color: $underline-variant;
 }
 
-.clear {
-  color: $underline;
+.clear-all {
+  display: flex;
+  top: 3.50px;
+  right: 10px;
+
+  & &__icon {
+    height: 35px;
+  }
+
+  @media (max-width: 576px) {
+    display: none;
+  }
 }
 
-.clear:hover {
+.clear__icon:hover {
   cursor: pointer;
   color: $text-primary;
 }
 
 .clear-icon {
-  right: -18px;
+  height: 27px;
+  right: -25px;
   color: $text-primary;
+
+  @media (max-width: 576px) {
+    height: 20px;
+    right: -18px;
+  }
 }
 
 .meal-type {
@@ -42,6 +63,14 @@ input:focus {
   color: $underline;
   font-weight: 300;
   font-size: 18px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 14px;
+  }
 }
 
 .active {
@@ -50,8 +79,12 @@ input:focus {
 }
 
 .meal-type-container {
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     grid-column-gap: 50px;
+  }
+
+  @media (max-width: 576px) {
+    grid-column-gap: 15px;
   }
 }
 

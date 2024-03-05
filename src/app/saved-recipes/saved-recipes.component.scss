@@ -1,0 +1,146 @@
+@import "/src/variables.scss";
+
+.recipes-container {
+  margin: 100px 0;
+  flex-wrap: wrap;
+  gap: 100px;
+  padding: 0 100px;
+}
+
+.title-container {
+  margin-top: 100px;
+}
+
+.title {
+  position: sticky;
+  font-weight: 300;
+  font-size: 75px;
+  color: $text-primary;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    font-size: 55px;
+  }
+}
+
+.title-background {
+  background-color: $background-accent;
+  width: 50%;
+  height: 140%;
+  top: -20%;
+  z-index: 0;
+  transform: translateX(-100%);
+  animation: animation 1.5s ease-in-out forwards;
+}
+
+@keyframes animation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.title-line {
+  top: 100%;
+  padding-top: 80px;
+  width: 80%;
+  height: 1px;
+  border-bottom: 2px solid $underline;
+  z-index: 1;
+  animation: animation 1.5s ease-in-out forwards;
+}
+
+.no-results {
+  letter-spacing: 4px;
+  font-size: 20px;
+  font-weight: 300;
+
+  & &__text {
+    color: $text-primary;
+  }
+
+  & &__try-again {
+    cursor: pointer;
+    color: $text-primary;
+    font-weight: 400;
+    text-decoration: underline;
+  }
+}
+
+.recipes-container {
+  margin-top: 160px;
+}
+
+.recipe {
+  & &__delete {
+    width: 40px;
+    top: -40px;
+    right: -7px;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      transform: rotate(90deg) scale(1.1);
+    }
+  }
+
+  & &__info {
+    bottom: 5px;
+    z-index: 1;
+    padding: 10px;
+  }
+
+  & &__name {
+    color: $background-accent;
+    bottom: 7px;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    font-size: 25px;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  & &__tags {
+    color: $background-accent;
+    gap: 30px;
+    font-weight: 300;
+    font-size: 12px;
+  }
+
+  & &__image-container {
+    overflow: hidden;
+  }
+
+  & &__image {
+    width: 330px;
+    height: 330px;
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+.gradient-box {
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    0deg,
+    black 0%,
+    rgba(0, 0, 0, 0.1),
+    transparent 100%
+  );
+  opacity: 0.7;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.recipe:hover .recipe__image {
+  transform: scale(1.05);
+}
+
+.recipe:hover .recipe__name {
+  text-decoration: underline;
+}

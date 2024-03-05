@@ -9,5 +9,4 @@ export class SpacePipe implements PipeTransform {
   transform(value: string[] ): string {
     return value.join(' ');
   }
-
 }

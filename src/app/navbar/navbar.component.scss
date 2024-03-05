@@ -1,0 +1,67 @@
+@import "/src/variables.scss";
+
+.logo {
+  cursor: pointer;
+  top: 20px;
+  left: 40px;
+  z-index: 1;
+
+  & &__svg {
+    width: 30px;
+  }
+}
+
+.options-container {
+  top: 20px;
+  right: 40px;
+  gap: 40px;
+  z-index: 1;
+
+  & &__option {
+    color: $underline;
+    display: flex;
+    gap: 10px;
+    letter-spacing: 3px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  & &__line {
+    height: 1.5rem;
+    border-right: 1px solid $underline;
+}
+  @media (max-width: 768px) {
+    & &__option {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+  }
+}
+
+.active {
+    animation: scale-animation 2s ease-in-out;
+}
+
+@keyframes scale-animation {
+    0% {
+        transform: scale(1.1);
+    }
+    25% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    75% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
