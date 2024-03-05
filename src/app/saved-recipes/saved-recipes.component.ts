@@ -38,7 +38,10 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
-    this.savedRecipesRepository.loadSavedRecipes(this.recipes);
+    const subscription = this.savedRecipesRepository.getSavedRecipesFromCookie().subscribe(
+      recipes => this.recipes = recipes
+    );
+    this.subscriptions.push(subscription)
   }
 
   ngOnDestroy(): void {

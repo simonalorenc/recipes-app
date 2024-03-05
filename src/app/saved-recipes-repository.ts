@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { RecipesRepository } from './recipes/data/recipes-repository';
 import { Recipe } from './recipes/data/recipe';
+import { Observable, forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,58 +15,44 @@ export class SavedRecipesRepository {
     private recipesRepository: RecipesRepository
   ) {}
 
-  private getAndParseSavedRecipesFromCookie(): number[] {
+  private getSavedRecipeIdsFromCookie(): number[] {
     const savedRecipesString = this.cookieService.get(this.COOKIE_KEY) || '[]';
-    const savedRecipes = JSON.parse(savedRecipesString) as number[];
-    return savedRecipes;
+    const savedRecipeIds = JSON.parse(savedRecipesString) as number[];
+    return savedRecipeIds;
   }
 
   isRecipeSave(recipeId: number): boolean {
-    const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    return savedRecipes.includes(recipeId);
+    const savedRecipeIds = this.getSavedRecipeIdsFromCookie();
+    return savedRecipeIds.includes(recipeId);
   }
 
   saveOrDeleteSavedRecipe(recipeIsSaved: boolean, recipeId: number): void {
-    const savedRecipes = this.getAndParseSavedRecipesFromCookie();
+    const savedRecipeIds = this.getSavedRecipeIdsFromCookie();
     if (recipeIsSaved) {
-      savedRecipes.push(recipeId);
+      savedRecipeIds.push(recipeId);
     } else {
-      const index = savedRecipes.findIndex((element) => element === recipeId);
-      savedRecipes.splice(index, 1);
+      const index = savedRecipeIds.findIndex((element) => element === recipeId);
+      savedRecipeIds.splice(index, 1);
     }
-    this.setSavedRecipesIdToCookie(savedRecipes);
+    this.setSavedRecipesIdToCookie(savedRecipeIds);
   }
 
   private setSavedRecipesIdToCookie(recipesId: number[]) {
     this.cookieService.set(this.COOKIE_KEY, JSON.stringify(recipesId));
   }
 
-  loadSavedRecipes(recipes: Recipe[]): void {
-    const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    savedRecipes.forEach((recipeId) => {
-      this.recipesRepository.getRecipe(recipeId).subscribe((recipe) => {
-        recipes.push(recipe);
-        const customSort = this.sortSavedRecipesByAddTime();
-        recipes.sort(customSort);
-      });
-    });
-  }
-
-  private sortSavedRecipesByAddTime() {
-    const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    const customSort = (a: Recipe, b: Recipe) => {
-      const idA = savedRecipes.indexOf(a.id);
-      const idB = savedRecipes.indexOf(b.id);
-
-      return idA - idB;
-    };
-    return customSort;
+  getSavedRecipesFromCookie(): Observable<Recipe[]> {
+    const savedRecipeIds = this.getSavedRecipeIdsFromCookie();
+    const observables = savedRecipeIds.map(id => {
+      return this.recipesRepository.getRecipe(id)
+    })
+    return forkJoin(observables);
   }
 
   deleteRecipeFromCookie(recipeId: number): void {
-    const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    const index = savedRecipes.findIndex((element) => element === recipeId);
-    savedRecipes.splice(index, 1);
-    this.setSavedRecipesIdToCookie(savedRecipes);
+    const savedRecipeIds = this.getSavedRecipeIdsFromCookie();
+    const index = savedRecipeIds.findIndex((element) => element === recipeId);
+    savedRecipeIds.splice(index, 1);
+    this.setSavedRecipesIdToCookie(savedRecipeIds);
   }
 }
