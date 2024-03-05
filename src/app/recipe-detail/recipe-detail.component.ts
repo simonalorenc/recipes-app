@@ -91,7 +91,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   shareRecipe(): void {
     this.urlIsCopiedAlert = true;
-    this.currentUrl = window.location.origin + this.router.url;
+    this.currentUrl = window.location.origin + '/#' + this.router.url;
     this.clipboard.copy(this.currentUrl);
     if (this.urlIsCopiedAlert) {
       setTimeout(() => {

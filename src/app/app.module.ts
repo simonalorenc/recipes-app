@@ -11,6 +11,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { RouteReuseStrategy } from '@angular/router';
 import { AppReuseStrategy } from './reuse-strategy';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AppReuseStrategy } from './reuse-strategy';
     ClipboardModule
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: AppReuseStrategy }
+    { provide: RouteReuseStrategy, useClass: AppReuseStrategy },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]
 })
