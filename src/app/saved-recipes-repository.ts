@@ -7,51 +7,41 @@ import { Recipe } from './recipes/data/recipe';
   providedIn: 'root',
 })
 export class SavedRecipesRepository {
+  private COOKIE_KEY: string = 'SavedRecipes';
     
   constructor(
     private cookieService: CookieService,
     private recipesRepository: RecipesRepository
   ) {}
 
-  getAndParseSavedRecipesFromCookie(): number[] {
-    const savedRecipesString = this.cookieService.get('SavedRecipes') || '[]';
+  private getAndParseSavedRecipesFromCookie(): number[] {
+    const savedRecipesString = this.cookieService.get(this.COOKIE_KEY) || '[]';
     const savedRecipes = JSON.parse(savedRecipesString) as number[];
     return savedRecipes;
   }
 
-  checkIfRecipeIsSave(recipeId: number): boolean {
+  isRecipeSave(recipeId: number): boolean {
     const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    if (savedRecipes.includes(recipeId)) {
-      return true;
-    } else {
-      return false;
-    }
+    return savedRecipes.includes(recipeId);
   }
 
   saveOrDeleteSavedRecipe(recipeIsSaved: boolean, recipeId: number): void {
     const savedRecipes = this.getAndParseSavedRecipesFromCookie();
     if (recipeIsSaved) {
       savedRecipes.push(recipeId);
-      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
-    } else if (!recipeIsSaved) {
+    } else {
       const index = savedRecipes.findIndex((element) => element === recipeId);
       savedRecipes.splice(index, 1);
-      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
     }
+    this.setSavedRecipesIdToCookie(savedRecipes);
   }
 
-  checkSavedRecipes(): boolean {
-    const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    if (savedRecipes.length != 0) {
-      return true;
-    } else {
-      return false;
-    }
+  private setSavedRecipesIdToCookie(recipesId: number[]) {
+    this.cookieService.set(this.COOKIE_KEY, JSON.stringify(recipesId));
   }
 
-  renderSavedRecipes(recipes: Recipe[]): void {
+  loadSavedRecipes(recipes: Recipe[]): void {
     const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    console.log('saved: ' + savedRecipes);
     savedRecipes.forEach((recipeId) => {
       this.recipesRepository.getRecipe(recipeId).subscribe((recipe) => {
         recipes.push(recipe);
@@ -61,7 +51,7 @@ export class SavedRecipesRepository {
     });
   }
 
-  sortSavedRecipesByAddTime() {
+  private sortSavedRecipesByAddTime() {
     const savedRecipes = this.getAndParseSavedRecipesFromCookie();
     const customSort = (a: Recipe, b: Recipe) => {
       const idA = savedRecipes.indexOf(a.id);
@@ -72,18 +62,10 @@ export class SavedRecipesRepository {
     return customSort;
   }
 
-  deleteRecipeFromSaved(recipeId: number, recipes: Recipe[]): void {
+  deleteRecipeFromCookie(recipeId: number): void {
     const savedRecipes = this.getAndParseSavedRecipesFromCookie();
-    if (savedRecipes.includes(recipeId)) {
-      const index = savedRecipes.findIndex((element) => element === recipeId);
-      savedRecipes.splice(index, 1);
-
-      const indexInRecipes = recipes.findIndex(
-        (recipe) => recipe.id === recipeId
-      );
-      recipes.splice(indexInRecipes, 1);
-
-      this.cookieService.set('SavedRecipes', JSON.stringify(savedRecipes));
-    }
+    const index = savedRecipes.findIndex((element) => element === recipeId);
+    savedRecipes.splice(index, 1);
+    this.setSavedRecipesIdToCookie(savedRecipes);
   }
 }

@@ -38,9 +38,7 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.viewportScroller.scrollToPosition([0, 0]);
-
-    this.savedRecipesRepository.checkSavedRecipes();
-    this.savedRecipesRepository.renderSavedRecipes(this.recipes);
+    this.savedRecipesRepository.loadSavedRecipes(this.recipes);
   }
 
   ngOnDestroy(): void {
@@ -48,7 +46,15 @@ export class SavedRecipesComponent implements OnInit, OnDestroy {
   }
 
   deleteRecipeFromSaved(recipeId: number): void {
-    this.savedRecipesRepository.deleteRecipeFromSaved(recipeId, this.recipes);
+    this.savedRecipesRepository.deleteRecipeFromCookie(recipeId);
+    this.deleteSavedRecipeFromView(recipeId, this.recipes);
+  }
+
+  deleteSavedRecipeFromView(recipeId: number, recipes: Recipe[]): void {
+    const indexInRecipes = recipes.findIndex(
+      (recipe) => recipe.id === recipeId
+    );
+    recipes.splice(indexInRecipes, 1);
   }
 
   navigateToRecipesList() {

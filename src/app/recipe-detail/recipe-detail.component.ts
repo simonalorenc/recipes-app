@@ -75,9 +75,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       .subscribe((recipe) => {
         this.recipe = recipe;
         this.rate = recipe.rating;
-        this.recipeIsSaved = this.savedRecipesRepository.checkIfRecipeIsSave(
-          this.recipe.id
-        );
+        this.recipeIsSaved = this.savedRecipesRepository.isRecipeSave(this.recipe.id);
       });
   }
 

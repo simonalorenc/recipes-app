@@ -13,7 +13,7 @@ Tech stack:
 
 ## Live
 
-[Exchange-rate-app](https://)
+[Culinary-crafts-app](https://culinary-crafts.netlify.app/#/landing-page/main/recipes-list)
 
 ## Some screenshots:
 

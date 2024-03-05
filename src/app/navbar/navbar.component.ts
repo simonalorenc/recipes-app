@@ -41,7 +41,9 @@ export class NavbarComponent implements OnChanges {
       this.viewportScroller.scrollToPosition([0, window.innerHeight]);
     } else {
       this.router.navigate(['/landing-page/main/recipes-list']).then(() => {
-        this.viewportScroller.scrollToPosition([0, window.innerHeight]);
+        setTimeout(() => {
+          this.viewportScroller.scrollToPosition([0, window.innerHeight]);
+        })
       })
     }
   }
